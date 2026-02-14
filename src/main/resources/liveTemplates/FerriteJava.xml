@@ -1,0 +1,46 @@
+<templateSet group="FerriteJava">
+    <template name="ferrite-lettuce" value="RedisClient client = RedisClient.create(&quot;redis://$HOST$:$PORT$&quot;);&#10;StatefulRedisConnection&lt;String, String&gt; connection = client.connect();&#10;RedisCommands&lt;String, String&gt; commands = connection.sync();" description="Ferrite Lettuce Java connection" toReformat="true" toShortenFQNames="true">
+        <variable name="HOST" expression="" defaultValue="&quot;localhost&quot;" alwaysStopAt="true"/>
+        <variable name="PORT" expression="" defaultValue="&quot;6379&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_CODE" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-jedis" value="Jedis jedis = new Jedis(&quot;$HOST$&quot;, $PORT$);" description="Ferrite Jedis Java connection" toReformat="true" toShortenFQNames="true">
+        <variable name="HOST" expression="" defaultValue="&quot;localhost&quot;" alwaysStopAt="true"/>
+        <variable name="PORT" expression="" defaultValue="6379" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_CODE" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-get" value="String value = commands.get(&quot;$KEY$&quot;);" description="Ferrite GET in Java (Lettuce)" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_CODE" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-set" value="commands.set(&quot;$KEY$&quot;, &quot;$VALUE$&quot;);" description="Ferrite SET in Java (Lettuce)" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_CODE" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-setex" value="commands.setex(&quot;$KEY$&quot;, $SECONDS$, &quot;$VALUE$&quot;);" description="Ferrite SETEX in Java (Lettuce)" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="SECONDS" expression="" defaultValue="3600" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="JAVA_CODE" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+</templateSet>

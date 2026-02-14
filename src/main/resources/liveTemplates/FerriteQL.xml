@@ -1,0 +1,210 @@
+<templateSet group="FerriteQL">
+    <!-- String Commands -->
+    <template name="get" value="GET $KEY$" description="Get the value of a key" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="set" value="SET $KEY$ $VALUE$" description="Set key to hold string value" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="setex" value="SET $KEY$ $VALUE$ EX $SECONDS$" description="Set key with expiration" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <variable name="SECONDS" expression="" defaultValue="3600" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <!-- Hash Commands -->
+    <template name="hset" value="HSET $KEY$ $FIELD$ $VALUE$" description="Set hash field" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="FIELD" expression="" defaultValue="&quot;field&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="hgetall" value="HGETALL $KEY$" description="Get all hash fields and values" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <!-- List Commands -->
+    <template name="lpush" value="LPUSH $KEY$ $VALUE$" description="Prepend value to list" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;list&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="lrange" value="LRANGE $KEY$ $START$ $STOP$" description="Get list range" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;list&quot;" alwaysStopAt="true"/>
+        <variable name="START" expression="" defaultValue="0" alwaysStopAt="true"/>
+        <variable name="STOP" expression="" defaultValue="-1" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <!-- Sorted Set Commands -->
+    <template name="zadd" value="ZADD $KEY$ $SCORE$ $MEMBER$" description="Add to sorted set" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;zset&quot;" alwaysStopAt="true"/>
+        <variable name="SCORE" expression="" defaultValue="0" alwaysStopAt="true"/>
+        <variable name="MEMBER" expression="" defaultValue="&quot;member&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="zrange" value="ZRANGE $KEY$ $START$ $STOP$ WITHSCORES" description="Get sorted set range with scores" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;zset&quot;" alwaysStopAt="true"/>
+        <variable name="START" expression="" defaultValue="0" alwaysStopAt="true"/>
+        <variable name="STOP" expression="" defaultValue="-1" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <!-- Stream Commands -->
+    <template name="xadd" value="XADD $KEY$ * $FIELD$ $VALUE$" description="Add to stream" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;stream&quot;" alwaysStopAt="true"/>
+        <variable name="FIELD" expression="" defaultValue="&quot;field&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <!-- Vector Commands -->
+    <template name="vectorcreate" value="VECTOR.CREATE $INDEX$ HNSW DIM $DIM$ DISTANCE COSINE" description="Create vector index" toReformat="false" toShortenFQNames="true">
+        <variable name="INDEX" expression="" defaultValue="&quot;embeddings&quot;" alwaysStopAt="true"/>
+        <variable name="DIM" expression="" defaultValue="1536" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="vectorsearch" value="VECTOR.SEARCH $INDEX$ [$VECTOR$] TOP_K $K$" description="Vector similarity search" toReformat="false" toShortenFQNames="true">
+        <variable name="INDEX" expression="" defaultValue="&quot;embeddings&quot;" alwaysStopAt="true"/>
+        <variable name="VECTOR" expression="" defaultValue="0.1, 0.2, 0.3" alwaysStopAt="true"/>
+        <variable name="K" expression="" defaultValue="10" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <!-- Time Series Commands -->
+    <template name="tsadd" value="TS.ADD $KEY$ * $VALUE$" description="Add time series sample" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;temperature&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="23.5" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="tsrange" value="TS.RANGE $KEY$ - + AGGREGATION avg $BUCKET$" description="Query time series range" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;temperature&quot;" alwaysStopAt="true"/>
+        <variable name="BUCKET" expression="" defaultValue="60000" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <!-- Semantic Commands -->
+    <template name="semanticset" value="SEMANTIC.SET $KEY$ &quot;$TEXT$&quot; TTL $TTL$" description="Set semantic cache entry" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;query&quot;" alwaysStopAt="true"/>
+        <variable name="TEXT" expression="" defaultValue="What is the capital of France?" alwaysStopAt="true"/>
+        <variable name="TTL" expression="" defaultValue="3600" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="semanticsearch" value="SEMANTIC.SEARCH &quot;$QUERY$&quot; TOP_K $K$ THRESHOLD $THRESHOLD$" description="Semantic similarity search" toReformat="false" toShortenFQNames="true">
+        <variable name="QUERY" expression="" defaultValue="capital of France" alwaysStopAt="true"/>
+        <variable name="K" expression="" defaultValue="5" alwaysStopAt="true"/>
+        <variable name="THRESHOLD" expression="" defaultValue="0.8" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <!-- FerriteQL SQL-like Queries -->
+    <template name="fql-select" value="QUERY &quot;SELECT $COLUMNS$ FROM $SOURCE$ WHERE $CONDITION$ LIMIT $LIMIT$&quot;" description="FerriteQL SELECT query" toReformat="false" toShortenFQNames="false">
+        <variable name="COLUMNS" expression="" defaultValue="*" alwaysStopAt="true" />
+        <variable name="SOURCE" expression="" defaultValue="keys" alwaysStopAt="true" />
+        <variable name="CONDITION" expression="" defaultValue="type = 'string'" alwaysStopAt="true" />
+        <variable name="LIMIT" expression="" defaultValue="10" alwaysStopAt="true" />
+        <context>
+            <option name="OTHER" value="true" />
+        </context>
+    </template>
+
+    <template name="fql-count" value="QUERY &quot;SELECT COUNT(*) FROM keys WHERE $CONDITION$&quot;" description="FerriteQL COUNT query" toReformat="false" toShortenFQNames="false">
+        <variable name="CONDITION" expression="" defaultValue="type = 'string'" alwaysStopAt="true" />
+        <context>
+            <option name="OTHER" value="true" />
+        </context>
+    </template>
+
+    <template name="fql-delete" value="QUERY &quot;DELETE FROM keys WHERE $CONDITION$&quot;" description="FerriteQL DELETE query" toReformat="false" toShortenFQNames="false">
+        <variable name="CONDITION" expression="" defaultValue="pattern = 'temp:*'" alwaysStopAt="true" />
+        <context>
+            <option name="OTHER" value="true" />
+        </context>
+    </template>
+
+    <template name="fql-topkeys" value="QUERY &quot;SELECT key, size FROM keys ORDER BY size DESC LIMIT $LIMIT$&quot;" description="FerriteQL find largest keys" toReformat="false" toShortenFQNames="false">
+        <variable name="LIMIT" expression="" defaultValue="20" alwaysStopAt="true" />
+        <context>
+            <option name="OTHER" value="true" />
+        </context>
+    </template>
+
+    <template name="fql-expiring" value="QUERY &quot;SELECT key, ttl FROM keys WHERE ttl BETWEEN 0 AND $MAX_TTL$ ORDER BY ttl ASC&quot;" description="FerriteQL find expiring keys" toReformat="false" toShortenFQNames="false">
+        <variable name="MAX_TTL" expression="" defaultValue="60" alwaysStopAt="true" />
+        <context>
+            <option name="OTHER" value="true" />
+        </context>
+    </template>
+
+    <!-- Semantic Cache -->
+    <template name="sem-set" value="SEMANTIC.SET &quot;$QUERY$&quot; &quot;$RESPONSE$&quot; TTL $TTL$" description="Cache semantic query-response pair" toReformat="false" toShortenFQNames="false">
+        <variable name="QUERY" expression="" defaultValue="query text" alwaysStopAt="true" />
+        <variable name="RESPONSE" expression="" defaultValue="response text" alwaysStopAt="true" />
+        <variable name="TTL" expression="" defaultValue="3600" alwaysStopAt="true" />
+        <context>
+            <option name="OTHER" value="true" />
+        </context>
+    </template>
+
+    <template name="sem-get" value="SEMANTIC.GET &quot;$QUERY$&quot; $THRESHOLD$" description="Search semantic cache by similarity" toReformat="false" toShortenFQNames="false">
+        <variable name="QUERY" expression="" defaultValue="query text" alwaysStopAt="true" />
+        <variable name="THRESHOLD" expression="" defaultValue="0.85" alwaysStopAt="true" />
+        <context>
+            <option name="OTHER" value="true" />
+        </context>
+    </template>
+
+    <!-- Time Travel -->
+    <template name="history" value="HISTORY $KEY$ SINCE $SINCE$" description="View key version history" toReformat="false" toShortenFQNames="false">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true" />
+        <variable name="SINCE" expression="" defaultValue="-24h" alwaysStopAt="true" />
+        <context>
+            <option name="OTHER" value="true" />
+        </context>
+    </template>
+</templateSet>

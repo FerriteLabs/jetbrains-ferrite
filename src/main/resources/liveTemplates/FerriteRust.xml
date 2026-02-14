@@ -1,0 +1,46 @@
+<templateSet group="FerriteRust">
+    <template name="ferrite-conn" value="use redis::Client;&#10;&#10;let client = Client::open(&quot;redis://$HOST$:$PORT$&quot;)?;&#10;let mut con = client.get_connection()?;" description="Ferrite/Redis Rust connection" toReformat="true" toShortenFQNames="true">
+        <variable name="HOST" expression="" defaultValue="&quot;127.0.0.1&quot;" alwaysStopAt="true"/>
+        <variable name="PORT" expression="" defaultValue="&quot;6379&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="RUST" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-get" value="let value: String = redis::cmd(&quot;GET&quot;).arg(&quot;$KEY$&quot;).query(&amp;mut con)?;" description="Ferrite GET in Rust" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="RUST" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-set" value="redis::cmd(&quot;SET&quot;).arg(&quot;$KEY$&quot;).arg(&quot;$VALUE$&quot;).execute(&amp;mut con)?;" description="Ferrite SET in Rust" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="RUST" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-pipeline" value="let (val1, val2): (String, String) = redis::pipe()&#10;    .cmd(&quot;GET&quot;).arg(&quot;$KEY1$&quot;)&#10;    .cmd(&quot;GET&quot;).arg(&quot;$KEY2$&quot;)&#10;    .query(&amp;mut con)?;" description="Ferrite pipeline in Rust" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY1" expression="" defaultValue="&quot;key1&quot;" alwaysStopAt="true"/>
+        <variable name="KEY2" expression="" defaultValue="&quot;key2&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="RUST" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-vector" value="redis::cmd(&quot;VECTOR.SEARCH&quot;)&#10;    .arg(&quot;$INDEX$&quot;)&#10;    .arg(&amp;$VECTOR$)&#10;    .arg(&quot;TOP_K&quot;)&#10;    .arg($K$)&#10;    .query(&amp;mut con)?;" description="Ferrite vector search in Rust" toReformat="true" toShortenFQNames="true">
+        <variable name="INDEX" expression="" defaultValue="&quot;embeddings&quot;" alwaysStopAt="true"/>
+        <variable name="VECTOR" expression="" defaultValue="embedding_bytes" alwaysStopAt="true"/>
+        <variable name="K" expression="" defaultValue="10" alwaysStopAt="true"/>
+        <context>
+            <option name="RUST" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+</templateSet>

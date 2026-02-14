@@ -1,0 +1,51 @@
+<templateSet group="FerriteTypeScript">
+    <template name="ferrite-conn" value="import Redis from 'ioredis';&#10;&#10;const redis = new Redis({&#10;  host: '$HOST$',&#10;  port: $PORT$,&#10;});" description="Ferrite/Redis TypeScript connection" toReformat="true" toShortenFQNames="true">
+        <variable name="HOST" expression="" defaultValue="&quot;localhost&quot;" alwaysStopAt="true"/>
+        <variable name="PORT" expression="" defaultValue="6379" alwaysStopAt="true"/>
+        <context>
+            <option name="TypeScript" value="true"/>
+            <option name="JavaScript" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-get" value="const value = await redis.get('$KEY$');" description="Ferrite GET in TypeScript" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="TypeScript" value="true"/>
+            <option name="JavaScript" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-set" value="await redis.set('$KEY$', '$VALUE$');" description="Ferrite SET in TypeScript" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="TypeScript" value="true"/>
+            <option name="JavaScript" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-pipeline" value="const results = await redis.pipeline()&#10;  .get('$KEY1$')&#10;  .get('$KEY2$')&#10;  .exec();" description="Ferrite pipeline in TypeScript" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY1" expression="" defaultValue="&quot;key1&quot;" alwaysStopAt="true"/>
+        <variable name="KEY2" expression="" defaultValue="&quot;key2&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="TypeScript" value="true"/>
+            <option name="JavaScript" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-setex" value="await redis.setex('$KEY$', $SECONDS$, '$VALUE$');" description="Ferrite SETEX in TypeScript" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="SECONDS" expression="" defaultValue="3600" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="TypeScript" value="true"/>
+            <option name="JavaScript" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+</templateSet>

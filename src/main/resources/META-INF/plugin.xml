@@ -1,0 +1,161 @@
+<idea-plugin>
+    <id>dev.ferrite.jetbrains</id>
+    <name>Ferrite</name>
+    <vendor email="support@ferrite.dev" url="https://ferrite.dev">Ferrite</vendor>
+
+    <description><![CDATA[
+    <h1>Ferrite for JetBrains IDEs</h1>
+    <p>Official JetBrains IDE plugin for <a href="https://ferrite.dev">Ferrite</a> -
+    a high-performance, tiered-storage key-value store.</p>
+
+    <h2>Features</h2>
+    <ul>
+        <li><strong>FerriteQL Support</strong> - Syntax highlighting, code completion, and command execution</li>
+        <li><strong>Database Tool Integration</strong> - Browse keys, inspect values, manage data</li>
+        <li><strong>Configuration Support</strong> - Syntax highlighting and validation for ferrite.toml</li>
+        <li><strong>Live Templates</strong> - Code snippets for Rust, Python, TypeScript, Go, and Java</li>
+        <li><strong>Connection Management</strong> - Save and manage multiple Ferrite connections</li>
+    </ul>
+
+    <h2>Getting Started</h2>
+    <ol>
+        <li>Install the plugin</li>
+        <li>Open Database tool window (View → Tool Windows → Database)</li>
+        <li>Click + → Data Source → Ferrite</li>
+        <li>Enter connection details and test</li>
+    </ol>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends optional="true" config-file="database-support.xml">com.intellij.database</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- FerriteQL Language Support -->
+        <fileType
+            name="FerriteQL"
+            implementationClass="dev.ferrite.jetbrains.language.FerriteQLFileType"
+            fieldName="INSTANCE"
+            language="FerriteQL"
+            extensions="fql;ferriteql"/>
+
+        <lang.parserDefinition
+            language="FerriteQL"
+            implementationClass="dev.ferrite.jetbrains.language.FerriteQLParserDefinition"/>
+
+        <lang.syntaxHighlighterFactory
+            language="FerriteQL"
+            implementationClass="dev.ferrite.jetbrains.language.FerriteQLSyntaxHighlighterFactory"/>
+
+        <completion.contributor
+            language="FerriteQL"
+            implementationClass="dev.ferrite.jetbrains.language.FerriteQLCompletionContributor"/>
+
+        <annotator
+            language="FerriteQL"
+            implementationClass="dev.ferrite.jetbrains.language.FerriteQLAnnotator"/>
+
+        <!-- Ferrite Config (TOML) Support -->
+        <fileType
+            name="Ferrite Config"
+            implementationClass="dev.ferrite.jetbrains.config.FerriteConfigFileType"
+            fieldName="INSTANCE"
+            patterns="ferrite.toml;ferrite.*.toml"/>
+
+        <!-- Tool Window -->
+        <toolWindow
+            id="Ferrite"
+            anchor="right"
+            icon="/icons/ferrite-tool.svg"
+            factoryClass="dev.ferrite.jetbrains.toolwindow.FerriteToolWindowFactory"/>
+
+        <!-- Settings -->
+        <applicationConfigurable
+            parentId="tools"
+            instance="dev.ferrite.jetbrains.settings.FerriteSettingsConfigurable"
+            id="dev.ferrite.settings"
+            displayName="Ferrite"/>
+
+        <applicationService
+            serviceImplementation="dev.ferrite.jetbrains.settings.FerriteSettings"/>
+
+        <!-- Live Templates -->
+        <defaultLiveTemplates file="/liveTemplates/FerriteQL.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/FerriteRust.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/FerritePython.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/FerriteTypeScript.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/FerriteGo.xml"/>
+        <defaultLiveTemplates file="/liveTemplates/FerriteJava.xml"/>
+
+        <liveTemplateContext
+            implementation="dev.ferrite.jetbrains.templates.FerriteQLContext"/>
+
+        <!-- Run Configuration -->
+        <configurationType
+            implementation="dev.ferrite.jetbrains.run.FerriteRunConfigurationType"/>
+
+        <!-- Notifications -->
+        <notificationGroup
+            id="Ferrite"
+            displayType="BALLOON"
+            isLogByDefault="true"/>
+    </extensions>
+
+    <actions>
+        <!-- Execute Command -->
+        <action
+            id="Ferrite.ExecuteCommand"
+            class="dev.ferrite.jetbrains.actions.ExecuteCommandAction"
+            text="Execute Ferrite Command"
+            description="Execute the current FerriteQL command"
+            icon="/icons/execute.svg">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl ENTER"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+        <!-- Execute Selection -->
+        <action
+            id="Ferrite.ExecuteSelection"
+            class="dev.ferrite.jetbrains.actions.ExecuteSelectionAction"
+            text="Execute Selection"
+            description="Execute the selected FerriteQL commands"
+            icon="/icons/execute-selection.svg">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift ENTER"/>
+        </action>
+
+        <!-- Connect -->
+        <action
+            id="Ferrite.Connect"
+            class="dev.ferrite.jetbrains.actions.ConnectAction"
+            text="Connect to Ferrite"
+            description="Connect to a Ferrite server"
+            icon="/icons/connect.svg"/>
+
+        <!-- Disconnect -->
+        <action
+            id="Ferrite.Disconnect"
+            class="dev.ferrite.jetbrains.actions.DisconnectAction"
+            text="Disconnect from Ferrite"
+            description="Disconnect from the current Ferrite server"
+            icon="/icons/disconnect.svg"/>
+
+        <!-- Refresh Keys -->
+        <action
+            id="Ferrite.RefreshKeys"
+            class="dev.ferrite.jetbrains.actions.RefreshKeysAction"
+            text="Refresh Keys"
+            description="Refresh the key list"
+            icon="/icons/refresh.svg"/>
+
+        <!-- Action Group -->
+        <group id="Ferrite.ActionGroup" text="Ferrite" popup="true" icon="/icons/ferrite.svg">
+            <reference ref="Ferrite.Connect"/>
+            <reference ref="Ferrite.Disconnect"/>
+            <separator/>
+            <reference ref="Ferrite.ExecuteCommand"/>
+            <reference ref="Ferrite.ExecuteSelection"/>
+            <separator/>
+            <reference ref="Ferrite.RefreshKeys"/>
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </group>
+    </actions>
+</idea-plugin>

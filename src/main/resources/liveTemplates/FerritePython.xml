@@ -1,0 +1,46 @@
+<templateSet group="FerritePython">
+    <template name="ferrite-conn" value="import redis&#10;&#10;r = redis.Redis(host='$HOST$', port=$PORT$, decode_responses=True)" description="Ferrite/Redis Python connection" toReformat="true" toShortenFQNames="true">
+        <variable name="HOST" expression="" defaultValue="&quot;localhost&quot;" alwaysStopAt="true"/>
+        <variable name="PORT" expression="" defaultValue="6379" alwaysStopAt="true"/>
+        <context>
+            <option name="Python" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-get" value="value = r.get('$KEY$')" description="Ferrite GET in Python" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="Python" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-set" value="r.set('$KEY$', '$VALUE$')" description="Ferrite SET in Python" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="Python" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-pipeline" value="pipe = r.pipeline()&#10;pipe.get('$KEY1$')&#10;pipe.get('$KEY2$')&#10;results = pipe.execute()" description="Ferrite pipeline in Python" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY1" expression="" defaultValue="&quot;key1&quot;" alwaysStopAt="true"/>
+        <variable name="KEY2" expression="" defaultValue="&quot;key2&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="Python" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="ferrite-setex" value="r.setex('$KEY$', $SECONDS$, '$VALUE$')" description="Ferrite SETEX in Python" toReformat="true" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
+        <variable name="SECONDS" expression="" defaultValue="3600" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="Python" value="true"/>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+</templateSet>
