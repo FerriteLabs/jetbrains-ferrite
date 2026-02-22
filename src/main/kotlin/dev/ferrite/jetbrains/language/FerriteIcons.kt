@@ -38,6 +38,9 @@ object FerriteIcons {
     val VECTOR: Icon = IconLoader.getIcon("/icons/vector.svg", FerriteIcons::class.java)
 
     @JvmField
+    val TOOLBAR: Icon = IconLoader.getIcon("/icons/ferrite-tool.svg", FerriteIcons::class.java)
+
+    @JvmField
     val CONNECTED: Icon = IconLoader.getIcon("/icons/connected.svg", FerriteIcons::class.java)
 
     @JvmField
