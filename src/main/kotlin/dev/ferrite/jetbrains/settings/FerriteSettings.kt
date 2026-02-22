@@ -16,7 +16,8 @@ class FerriteSettings : PersistentStateComponent<FerriteSettings.State> {
         var defaultPort: Int = 6379,
         var outputFormat: String = "raw",
         var maxKeysToDisplay: Int = 1000,
-        var autoConnectOnOpen: Boolean = false
+        var autoConnectOnOpen: Boolean = false,
+        var connectionTimeoutMs: Int = 5000
     )
 
     private var state = State()
@@ -46,6 +47,10 @@ class FerriteSettings : PersistentStateComponent<FerriteSettings.State> {
     var autoConnectOnOpen: Boolean
         get() = state.autoConnectOnOpen
         set(value) { state.autoConnectOnOpen = value }
+
+    var connectionTimeoutMs: Int
+        get() = state.connectionTimeoutMs
+        set(value) { state.connectionTimeoutMs = value }
 
     companion object {
         fun getInstance(): FerriteSettings =
