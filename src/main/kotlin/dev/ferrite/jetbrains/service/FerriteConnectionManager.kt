@@ -3,10 +3,12 @@ package dev.ferrite.jetbrains.service
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
+import dev.ferrite.jetbrains.settings.FerriteSettings
 import io.lettuce.core.RedisClient
 import io.lettuce.core.RedisURI
 import io.lettuce.core.api.StatefulRedisConnection
 import io.lettuce.core.api.sync.RedisCommands
+import java.time.Duration
 
 @Service(Service.Level.PROJECT)
 class FerriteConnectionManager(private val project: Project) {
@@ -48,7 +50,9 @@ class FerriteConnectionManager(private val project: Project) {
                 uriBuilder.withSsl(true)
             }
 
+            val timeout = Duration.ofMillis(FerriteSettings.getInstance().connectionTimeoutMs.toLong())
             currentClient = RedisClient.create(uriBuilder.build())
+            currentClient?.setDefaultTimeout(timeout)
             currentConnection = currentClient?.connect()
             currentConnectionName = name
 
