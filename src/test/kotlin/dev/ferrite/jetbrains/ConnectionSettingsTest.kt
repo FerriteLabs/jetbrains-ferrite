@@ -431,6 +431,19 @@ class ConnectionSettingsTest {
     }
 
     @Test
+    fun `validate connection timeout - positive values only`() {
+        val validTimeouts = listOf(1000, 5000, 10000, 30000)
+        val invalidTimeouts = listOf(0, -1, -1000)
+
+        for (timeout in validTimeouts) {
+            assertTrue("Timeout $timeout should be valid", timeout > 0)
+        }
+        for (timeout in invalidTimeouts) {
+            assertFalse("Timeout $timeout should be invalid", timeout > 0)
+        }
+    }
+
+    @Test
     fun `validate password - empty and non-empty are both acceptable`() {
         // No constraint on password being present - empty means no auth
         val noAuth = ConnectionConfig(name = "test", host = "localhost", password = "")
