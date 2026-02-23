@@ -18,6 +18,7 @@ class FerriteToolWindow(private val project: Project) {
     private val connectionsList = JBList<ConnectionItem>()
     private val keysList = JBList<KeyItem>()
     private val serverInfoArea = JTextArea()
+    private val poolStatusLabel = JLabel("Pool: idle")
 
     init {
         setupUI()
@@ -31,6 +32,7 @@ class FerriteToolWindow(private val project: Project) {
         connectionsList.cellRenderer = ConnectionCellRenderer()
         connectionsPanel.add(JBScrollPane(connectionsList), BorderLayout.CENTER)
         connectionsPanel.add(createConnectionToolbar(), BorderLayout.NORTH)
+        connectionsPanel.add(poolStatusLabel, BorderLayout.SOUTH)
         tabbedPane.addTab("Connections", connectionsPanel)
 
         // Keys tab
@@ -116,6 +118,7 @@ class FerriteToolWindow(private val project: Project) {
     private fun connectToSelected() {
         val selected = connectionsList.selectedValue ?: return
         connectionManager.connect(selected.name)
+        updatePoolStatus()
         updateConnectionsList()
         refreshKeys()
         refreshServerInfo()
@@ -126,6 +129,7 @@ class FerriteToolWindow(private val project: Project) {
         updateConnectionsList()
         keysList.model = DefaultListModel()
         serverInfoArea.text = ""
+        updatePoolStatus()
     }
 
     private fun removeSelected() {
@@ -173,6 +177,10 @@ class FerriteToolWindow(private val project: Project) {
         connectionsList.model = model
     }
 
+    private fun updatePoolStatus() {
+        val status = if (connectionManager.isConnected()) "Pool: active (1 conn)" else "Pool: idle"
+        poolStatusLabel.text = status
+    }
     fun getContent(): JComponent = panel
 
     data class ConnectionItem(
