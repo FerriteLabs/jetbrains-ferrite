@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.9.25"
     id("org.jetbrains.intellij") version "1.16.1"
+    id("io.gitlab.arturbosch.detekt") version "1.23.7"
 }
 
 group = "dev.ferrite"
@@ -14,6 +15,12 @@ repositories {
 dependencies {
     implementation("io.lettuce:lettuce-core:6.3.0.RELEASE")
     testImplementation("junit:junit:4.13.2")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7")
+}
+
+detekt {
+    config.setFrom("$projectDir/detekt.yml")
+    buildUponDefaultConfig = true
 }
 
 // Configure Gradle IntelliJ Plugin

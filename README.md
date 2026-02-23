@@ -1,5 +1,9 @@
 # Ferrite for JetBrains IDEs
 
+[![CI](https://github.com/ferritelabs/jetbrains-ferrite/actions/workflows/ci.yml/badge.svg)](https://github.com/ferritelabs/jetbrains-ferrite/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
+[![JetBrains Marketplace](https://img.shields.io/badge/JetBrains-Marketplace-000000)](https://plugins.jetbrains.com/plugin/ferritelabs-ferrite)
+
 Official JetBrains IDE plugin for [Ferrite](https://ferrite.dev) - a high-performance, tiered-storage key-value store.
 
 ## Features

@@ -12,6 +12,9 @@ out/
 # Logs
 *.log
 
+# Coverage
+coverage/
+
 # IDE / Editor
 .idea/
 .vscode/
