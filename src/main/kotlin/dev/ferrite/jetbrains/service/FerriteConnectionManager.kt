@@ -18,6 +18,10 @@ class FerriteConnectionManager(private val project: Project) {
     private var currentClient: RedisClient? = null
     private var currentConnectionName: String? = null
 
+    // Timeout applied specifically to the TLS handshake phase to avoid hanging
+    // on misconfigured or unreachable TLS endpoints.
+    private val tlsHandshakeTimeoutMs: Long = 5000L
+
     fun addConnection(config: ConnectionConfig) {
         connections[config.name] = config
     }
@@ -47,6 +51,7 @@ class FerriteConnectionManager(private val project: Project) {
             }
 
             if (config.useTls) {
+                uriBuilder.withTimeout(Duration.ofMillis(tlsHandshakeTimeoutMs))
                 uriBuilder.withSsl(true)
             }
 
