@@ -25,3 +25,15 @@ style:
 naming:
   FunctionNaming:
     functionPattern: '[a-z][a-zA-Z0-9]*'
+
+formatting:
+  active: true
+  MaximumLineLength:
+    active: true
+    maxLineLength: 140
+  NoWildcardImports:
+    active: true
+  TrailingCommaOnCallSite:
+    active: false
+  TrailingCommaOnDeclarationSite:
+    active: false
