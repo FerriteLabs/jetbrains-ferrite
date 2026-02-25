@@ -25,7 +25,7 @@ detekt {
 
 // Configure Gradle IntelliJ Plugin
 intellij {
-    version.set("2023.3")
+    version.set("2024.3.1")
     type.set("IC") // IntelliJ IDEA Community Edition
 
     plugins.set(listOf(
@@ -44,8 +44,8 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("233")
-        untilBuild.set("241.*")
+        sinceBuild.set("243")
+        untilBuild.set("251.*")
 
         pluginDescription.set("""
             <h1>Ferrite for JetBrains IDEs</h1>
