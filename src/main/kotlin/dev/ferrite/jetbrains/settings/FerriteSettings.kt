@@ -11,6 +11,16 @@ import com.intellij.openapi.components.Storage
 )
 class FerriteSettings : PersistentStateComponent<FerriteSettings.State> {
 
+    /**
+     * Persistent state for Ferrite plugin connection settings.
+     *
+     * @property defaultHost The hostname or IP address of the Ferrite server. Defaults to "localhost".
+     * @property defaultPort The port number the Ferrite server listens on. Defaults to 6379 (Redis-compatible).
+     * @property outputFormat Display format for command output: "raw", "JSON", or "table".
+     * @property maxKeysToDisplay Upper limit on the number of keys shown in the key browser tree.
+     * @property autoConnectOnOpen When true, the plugin automatically connects on project open.
+     * @property connectionTimeoutMs Timeout in milliseconds for establishing a connection.
+     */
     data class State(
         var defaultHost: String = "localhost",
         var defaultPort: Int = 6379,
