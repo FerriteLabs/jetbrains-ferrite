@@ -1,1 +1,10 @@
+# Default owners for everything
 * @josedab
+
+# Plugin source
+/src/ @josedab
+
+# CI/CD and infrastructure
+/.github/ @josedab
+/build.gradle.kts @josedab
+/settings.gradle.kts @josedab
