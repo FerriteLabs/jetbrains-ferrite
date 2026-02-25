@@ -68,7 +68,7 @@
             icon="/icons/ferrite-tool.svg"
             factoryClass="dev.ferrite.jetbrains.toolwindow.FerriteToolWindowFactory"/>
 
-        <!-- Settings -->
+        <!-- Settings (registered via applicationConfigurable + lightweight service) -->
         <applicationConfigurable
             parentId="tools"
             instance="dev.ferrite.jetbrains.settings.FerriteSettingsConfigurable"
@@ -76,6 +76,7 @@
             displayName="Ferrite"/>
 
         <applicationService
+            serviceInterface="dev.ferrite.jetbrains.settings.FerriteSettings"
             serviceImplementation="dev.ferrite.jetbrains.settings.FerriteSettings"/>
 
         <!-- Live Templates -->
