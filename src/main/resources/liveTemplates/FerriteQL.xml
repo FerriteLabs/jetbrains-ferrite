@@ -24,6 +24,21 @@
         </context>
     </template>
 
+    <template name="mget" value="MGET $KEY1$ $KEY2$" description="Get values of multiple keys" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY1" expression="" defaultValue="&quot;key1&quot;" alwaysStopAt="true"/>
+        <variable name="KEY2" expression="" defaultValue="&quot;key2&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
+    <template name="incr" value="INCR $KEY$" description="Increment the integer value of a key by one" toReformat="false" toShortenFQNames="true">
+        <variable name="KEY" expression="" defaultValue="&quot;counter&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="OTHER" value="true"/>
+        </context>
+    </template>
+
     <!-- Hash Commands -->
     <template name="hset" value="HSET $KEY$ $FIELD$ $VALUE$" description="Set hash field" toReformat="false" toShortenFQNames="true">
         <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true"/>
