@@ -76,6 +76,8 @@ class FerriteConnectionManager(private val project: Project) {
             currentConnection?.close()
             currentClient?.shutdown()
         } finally {
+            // Eagerly null out references so the GC can reclaim Netty buffers
+            // that the Lettuce client may still hold via internal channel pools.
             currentConnection = null
             currentClient = null
             currentConnectionName = null
