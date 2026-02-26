@@ -466,3 +466,9 @@ class ConnectionSettingsTest {
         assertTrue(whitespaceOnly.isBlank())
     }
 }
+
+    @Test
+    fun `auto-reconnect defaults to true`() {
+        val state = FerriteSettings.State()
+        assertTrue("Auto-reconnect should default to true", state.autoReconnect)
+    }
