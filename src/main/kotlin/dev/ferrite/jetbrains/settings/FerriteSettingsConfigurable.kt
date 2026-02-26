@@ -25,6 +25,10 @@ class FerriteSettingsConfigurable : Configurable {
 
     override fun getDisplayName(): String = "Ferrite"
 
+    private companion object {
+        private const val GRID_INSET = 5
+    }
+
     override fun createComponent(): JComponent {
         val p = JPanel(GridBagLayout())
         val gbc = GridBagConstraints().apply {
