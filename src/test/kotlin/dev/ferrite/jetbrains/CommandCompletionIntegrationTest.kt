@@ -31,7 +31,7 @@ class CommandCompletionIntegrationTest {
 
     private fun firstTokenType(input: String): com.intellij.psi.tree.IElementType? {
         lexer.start(input, 0, input.length, 0)
-        return lexer.tokenType
+        return lexer.tokenType  // may be null if input is empty
     }
 
     // -----------------------------------------------------------------------
