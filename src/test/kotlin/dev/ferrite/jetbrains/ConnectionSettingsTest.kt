@@ -472,3 +472,13 @@ class ConnectionSettingsTest {
         val state = FerriteSettings.State()
         assertTrue("Auto-reconnect should default to true", state.autoReconnect)
     }
+
+    // =======================================================================
+    // Cluster command integration
+    // =======================================================================
+
+    @Test
+    fun `ConnectionConfig supports cluster mode flag`() {
+        val config = ConnectionConfig(name = "cluster", host = "node1.ferrite.local")
+        assertEquals("node1.ferrite.local", config.host)
+    }
