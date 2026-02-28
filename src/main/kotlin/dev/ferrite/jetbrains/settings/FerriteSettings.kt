@@ -28,7 +28,8 @@ class FerriteSettings : PersistentStateComponent<FerriteSettings.State> {
         var maxKeysToDisplay: Int = 1000,
         var autoConnectOnOpen: Boolean = false,
         var connectionTimeoutMs: Int = 10000,
-        var autoReconnect: Boolean = true
+        var autoReconnect: Boolean = true,
+        var reconnectDelayMs: Int = 3000
     )
 
     private var state = State()
