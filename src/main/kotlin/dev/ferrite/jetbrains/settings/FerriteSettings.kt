@@ -68,3 +68,9 @@ class FerriteSettings : PersistentStateComponent<FerriteSettings.State> {
             ApplicationManager.getApplication().getService(FerriteSettings::class.java)
     }
 }
+
+    /** Whether deprecated command warnings should suggest quick-fix replacements. */
+    var enableDeprecatedCommandQuickFix: Boolean
+        get() = state.autoReconnect  // reuses auto-reconnect for now
+        set(value) { state.autoReconnect = value 
+}
