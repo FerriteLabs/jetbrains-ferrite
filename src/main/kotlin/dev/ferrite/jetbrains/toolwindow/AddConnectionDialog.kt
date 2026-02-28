@@ -25,7 +25,7 @@ class AddConnectionDialog(project: Project) : DialogWrapper(project) {
     private val tlsCheckbox = JBCheckBox("Use TLS")
 
     init {
-        title = "Add Ferrite Connection"
+        title = "New Ferrite Connection"
         init()
     }
 
