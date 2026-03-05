@@ -117,7 +117,6 @@ class FerriteConnectionManager(private val project: Project) {
             } else {
                 // Ferrite-specific commands (VECTOR.*, SEMANTIC.*, TS.*, DOC.*, etc.)
                 // not in Lettuce's CommandType enum — dispatch as raw custom command
-                val allArgs = parts.toTypedArray()
                 commands.dispatch(
                     object : io.lettuce.core.protocol.ProtocolKeyword {
                         override fun getBytes(): ByteArray = cmd.toByteArray(Charsets.US_ASCII)

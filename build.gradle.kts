@@ -1,7 +1,7 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.25" // min 1.9.22
-    id("org.jetbrains.intellij") version "1.16.1"
+    id("org.jetbrains.kotlin.jvm") version "2.0.21"
+    id("org.jetbrains.intellij.platform") version "2.3.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.7"
 }
 
@@ -10,12 +10,21 @@ version = "1.1.0"
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
 dependencies {
     implementation("io.lettuce:lettuce-core:6.3.0.RELEASE")
     testImplementation("junit:junit:4.13.2")
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7")
+
+    intellijPlatform {
+        intellijIdeaCommunity("2024.3.1")
+        bundledPlugin("com.intellij.java")
+        instrumentationTools()
+    }
 }
 
 detekt {
@@ -23,24 +32,13 @@ detekt {
     buildUponDefaultConfig = true
 }
 
-// Configure Gradle IntelliJ Plugin
-intellij {
-    version.set("2024.3.1")
-    type.set("IC") // IntelliJ IDEA Community Edition
-
-    plugins.set(listOf(
-        "com.intellij.java"
-    ))
-}
-
 tasks {
-    // Set the JVM compatibility versions
     withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "21"
     }
 
     patchPluginXml {
@@ -62,6 +60,12 @@ tasks {
         """.trimIndent())
 
         changeNotes.set("""
+            <h2>1.1.0</h2>
+            <ul>
+                <li>Fix FerriteSettings syntax error</li>
+                <li>Fix command dispatch crash on Ferrite-specific commands</li>
+                <li>Expand annotator validation to 130+ commands</li>
+            </ul>
             <h2>1.0.0</h2>
             <ul>
                 <li>Initial release</li>
