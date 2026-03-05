@@ -5,6 +5,9 @@ out/
 # Gradle
 .gradle/
 
+# IntelliJ Platform SDK artifacts (downloaded by Gradle plugin)
+.intellijPlatform/
+
 # Environment
 .env
 .env.*

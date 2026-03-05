@@ -61,3 +61,7 @@ src/main/kotlin/dev/ferrite/jetbrains/
 5. Push and open a PR
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
+
+---
+
+**Part of [FerriteLabs](https://github.com/ferritelabs)** — see the [core engine](https://github.com/ferritelabs/ferrite) for the full project.
