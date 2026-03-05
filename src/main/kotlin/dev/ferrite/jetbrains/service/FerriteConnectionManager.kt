@@ -100,15 +100,41 @@ class FerriteConnectionManager(private val project: Project) {
             val cmd = parts[0].uppercase()
             val args = parts.drop(1).toTypedArray()
 
-            val result = commands.dispatch(
-                io.lettuce.core.protocol.CommandType.valueOf(cmd),
-                io.lettuce.core.output.StatusOutput(io.lettuce.core.codec.StringCodec.UTF8),
-                io.lettuce.core.protocol.CommandArgs(io.lettuce.core.codec.StringCodec.UTF8).apply {
-                    args.forEach { add(it) }
-                }
-            )
+            val commandType = try {
+                io.lettuce.core.protocol.CommandType.valueOf(cmd)
+            } catch (_: IllegalArgumentException) {
+                null
+            }
+
+            val result = if (commandType != null) {
+                commands.dispatch(
+                    commandType,
+                    io.lettuce.core.output.StatusOutput(io.lettuce.core.codec.StringCodec.UTF8),
+                    io.lettuce.core.protocol.CommandArgs(io.lettuce.core.codec.StringCodec.UTF8).apply {
+                        args.forEach { add(it) }
+                    }
+                )
+            } else {
+                // Ferrite-specific commands (VECTOR.*, SEMANTIC.*, TS.*, DOC.*, etc.)
+                // not in Lettuce's CommandType enum — dispatch as raw custom command
+                val allArgs = parts.toTypedArray()
+                commands.dispatch(
+                    object : io.lettuce.core.protocol.ProtocolKeyword {
+                        override fun getBytes(): ByteArray = cmd.toByteArray(Charsets.US_ASCII)
+                        override fun name(): String = cmd
+                    },
+                    io.lettuce.core.output.StatusOutput(io.lettuce.core.codec.StringCodec.UTF8),
+                    io.lettuce.core.protocol.CommandArgs(io.lettuce.core.codec.StringCodec.UTF8).apply {
+                        args.forEach { add(it) }
+                    }
+                )
+            }
 
             return result?.toString() ?: "(nil)"
+        } catch (e: io.lettuce.core.RedisCommandExecutionException) {
+            return "Error: ${e.message}"
+        } catch (e: io.lettuce.core.RedisConnectionException) {
+            return "Error: Connection lost — ${e.message}"
         } catch (e: Exception) {
             return "Error: ${e.message}"
         }

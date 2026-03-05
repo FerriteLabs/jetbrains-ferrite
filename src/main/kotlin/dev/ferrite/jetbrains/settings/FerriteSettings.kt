@@ -64,14 +64,16 @@ class FerriteSettings : PersistentStateComponent<FerriteSettings.State> {
         get() = state.connectionTimeoutMs
         set(value) { state.connectionTimeoutMs = value }
 
+    var autoReconnect: Boolean
+        get() = state.autoReconnect
+        set(value) { state.autoReconnect = value }
+
+    var reconnectDelayMs: Int
+        get() = state.reconnectDelayMs
+        set(value) { state.reconnectDelayMs = value }
+
     companion object {
         fun getInstance(): FerriteSettings =
             ApplicationManager.getApplication().getService(FerriteSettings::class.java)
     }
-}
-
-    /** Whether deprecated command warnings should suggest quick-fix replacements. */
-    var enableDeprecatedCommandQuickFix: Boolean
-        get() = state.autoReconnect  // reuses auto-reconnect for now
-        set(value) { state.autoReconnect = value 
 }
