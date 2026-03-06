@@ -145,12 +145,15 @@ class FerriteConnectionManager(private val project: Project) {
         try {
             val keys = mutableListOf<String>()
             var cursor = io.lettuce.core.ScanCursor.INITIAL
+            var iterations = 0
+            val maxIterations = count / 10 + 100 // safeguard against infinite loops
 
-            while (!cursor.isFinished && keys.size < count) {
+            while (!cursor.isFinished && keys.size < count && iterations < maxIterations) {
                 val scanArgs = io.lettuce.core.ScanArgs().match(pattern).limit(100)
                 val result = commands.scan(cursor, scanArgs)
                 keys.addAll(result.keys)
                 cursor = result
+                iterations++
             }
 
             return keys.take(count)
