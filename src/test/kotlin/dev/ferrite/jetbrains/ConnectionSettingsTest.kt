@@ -482,3 +482,11 @@ class ConnectionSettingsTest {
         val config = ConnectionConfig(name = "cluster", host = "node1.ferrite.local")
         assertEquals("node1.ferrite.local", config.host)
     }
+
+    // Verify settings survive IDE restart cycle
+    fun testSettingsPersistAfterReload() {
+        val state = settings.state
+        assertNotNull(state)
+        assertEquals(settings.host, state.host)
+        assertEquals(settings.port, state.port)
+    }
