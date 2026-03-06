@@ -12,7 +12,8 @@ object FerriteQLTokenTypes {
     val WHITESPACE = FerriteQLTokenType("WHITESPACE")
     val NEWLINE = FerriteQLTokenType("NEWLINE")
     val IDENTIFIER = FerriteQLTokenType("IDENTIFIER")
-    val BAD_CHARACTER = FerriteQLTokenType("BAD_CHARACTER")
+    val ACL_KEYWORD = FerriteQLTokenType("ACL_KEYWORD")
+    val ACL_RULE = FerriteQLTokenType("ACL_RULE")    val BAD_CHARACTER = FerriteQLTokenType("BAD_CHARACTER")
 }
 
 class FerriteQLTokenType(debugName: String) : IElementType(debugName, FerriteQLLanguage.INSTANCE) {
