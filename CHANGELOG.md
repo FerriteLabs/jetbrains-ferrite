@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Cluster node visualization panel in database tool window
 
+### Fixed
+
+- Increased default connection timeout to 15s for large cluster environments
+
 ## [1.1.0] - 2026-02-28
 
 ### Added
