@@ -242,3 +242,4 @@ Apache 2.0 - See [LICENSE](https://github.com/ferritelabs/ferrite/blob/main/LICE
 - [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ferrite.ferrite-vscode)
 - [GitHub Repository](https://github.com/ferritelabs/ferrite)
 - [Issue Tracker](https://github.com/ferritelabs/ferrite/issues)
+
