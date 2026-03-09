@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-03-09
+
 ### Added
 
 - Cluster node visualization panel in database tool window
@@ -47,7 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Live Templates (Java)**: Client setup with Lettuce and Jedis
 - **IDE Support**: Compatible with all JetBrains IDEs 2023.3+ (IntelliJ IDEA, PyCharm, WebStorm, PhpStorm, RubyMine, GoLand, Rider, CLion, DataGrip, Android Studio)
 
-[Unreleased]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/ferritelabs/jetbrains-ferrite/releases/tag/v1.0.0
 
