@@ -143,6 +143,78 @@ class FerriteQLCompletionProvider : CompletionProvider<CompletionParameters>() {
             "EXEC" to "EXEC - Execute transaction",
             "DISCARD" to "DISCARD - Discard transaction",
             "WATCH" to "WATCH key [key ...] - Watch keys for changes",
+
+            // Automatic index management
+            "AUTOINDEX.RECORD" to "AUTOINDEX.RECORD key - Record access pattern for analysis",
+            "AUTOINDEX.ANALYZE" to "AUTOINDEX.ANALYZE - Analyze patterns for index recommendations",
+            "AUTOINDEX.RECOMMEND" to "AUTOINDEX.RECOMMEND [COUNT n] - Get index recommendations",
+            "AUTOINDEX.APPLY" to "AUTOINDEX.APPLY pattern type [FIELDS ...] - Apply recommended index",
+            "AUTOINDEX.LIST" to "AUTOINDEX.LIST - List active auto-indexes",
+            "AUTOINDEX.REMOVE" to "AUTOINDEX.REMOVE pattern type - Remove an auto-index",
+            "AUTOINDEX.STATS" to "AUTOINDEX.STATS - Get auto-indexing statistics",
+            "AUTOINDEX.INFO" to "AUTOINDEX.INFO - Get auto-index system information",
+            "AUTOINDEX.CLEANUP" to "AUTOINDEX.CLEANUP [MIN_ACCESS n] - Clean up unused indexes",
+
+            // Conversation memory
+            "CONV.CREATE" to "CONV.CREATE user_id [TITLE t] [SYSTEM prompt] [TTL secs] - Create conversation",
+            "CONV.DELETE" to "CONV.DELETE conv_id - Delete conversation",
+            "CONV.MESSAGE" to "CONV.MESSAGE conv_id role content - Add message",
+            "CONV.CONTEXT" to "CONV.CONTEXT conv_id [LIMIT n] - Get context window",
+            "CONV.LIST" to "CONV.LIST user_id - List conversations for user",
+            "CONV.INFO" to "CONV.INFO conv_id - Get conversation info",
+            "CONV.CLEAR" to "CONV.CLEAR conv_id - Clear conversation messages",
+            "CONV.SYSTEM" to "CONV.SYSTEM conv_id prompt - Set system prompt",
+            "CONV.STATS" to "CONV.STATS - Get conversation statistics",
+
+            // Cost optimization
+            "COST.ESTIMATE" to "COST.ESTIMATE [keys pattern] - Estimate infrastructure costs",
+            "COST.OPTIMIZE" to "COST.OPTIMIZE [LIMIT n] - Get cost optimization suggestions",
+            "COST.HINTS" to "COST.HINTS [keys pattern] - Get cost-saving hints",
+            "COST.STATS" to "COST.STATS - Get cost statistics",
+            "COST.BUDGET" to "COST.BUDGET [SET amount | GET] - Manage budget limits",
+
+            // Multi-cloud management
+            "MULTICLOUD.PROVIDER.ADD" to "MULTICLOUD.PROVIDER.ADD name type config - Add cloud provider",
+            "MULTICLOUD.PROVIDER.LIST" to "MULTICLOUD.PROVIDER.LIST - List cloud providers",
+            "MULTICLOUD.REGION.ADD" to "MULTICLOUD.REGION.ADD provider region - Add region",
+            "MULTICLOUD.REGION.LIST" to "MULTICLOUD.REGION.LIST [provider] - List regions",
+            "MULTICLOUD.SYNC" to "MULTICLOUD.SYNC [provider] [region] - Trigger sync",
+            "MULTICLOUD.STATUS" to "MULTICLOUD.STATUS - Get multi-cloud status",
+            "MULTICLOUD.HEALTH" to "MULTICLOUD.HEALTH [provider] - Check cloud health",
+
+            // Data access policy
+            "POLICY.CREATE" to "POLICY.CREATE name rules - Create access policy",
+            "POLICY.DELETE" to "POLICY.DELETE name - Delete policy",
+            "POLICY.GET" to "POLICY.GET name - Get policy definition",
+            "POLICY.LIST" to "POLICY.LIST - List all policies",
+            "POLICY.EVALUATE" to "POLICY.EVALUATE name context - Evaluate policy",
+            "POLICY.STATS" to "POLICY.STATS - Get policy statistics",
+
+            // S3-compatible object storage
+            "S3.BUCKET.CREATE" to "S3.BUCKET.CREATE bucket - Create S3 bucket",
+            "S3.BUCKET.DELETE" to "S3.BUCKET.DELETE bucket - Delete S3 bucket",
+            "S3.BUCKET.LIST" to "S3.BUCKET.LIST - List S3 buckets",
+            "S3.PUT" to "S3.PUT bucket key value - Put object into bucket",
+            "S3.GET" to "S3.GET bucket key - Get object from bucket",
+            "S3.DELETE" to "S3.DELETE bucket key - Delete object from bucket",
+            "S3.LIST" to "S3.LIST bucket [prefix] - List objects in bucket",
+            "S3.STATS" to "S3.STATS - Get S3 storage statistics",
+
+            // Slot management
+            "SLOT.CREATE" to "SLOT.CREATE name range - Create data slot",
+            "SLOT.DROP" to "SLOT.DROP name - Drop data slot",
+            "SLOT.LIST" to "SLOT.LIST - List data slots",
+            "SLOT.START" to "SLOT.START name target - Start slot migration",
+            "SLOT.STOP" to "SLOT.STOP name - Stop slot migration",
+            "SLOT.STATS" to "SLOT.STATS - Get slot statistics",
+
+            // Vector bulk ingest
+            "VECTOR.INGEST.START" to "VECTOR.INGEST.START index source [OPTIONS] - Start bulk ingest pipeline",
+            "VECTOR.INGEST.STOP" to "VECTOR.INGEST.STOP pipeline_id - Stop ingest pipeline",
+            "VECTOR.INGEST.PAUSE" to "VECTOR.INGEST.PAUSE pipeline_id - Pause ingest pipeline",
+            "VECTOR.INGEST.RESUME" to "VECTOR.INGEST.RESUME pipeline_id - Resume ingest pipeline",
+            "VECTOR.INGEST.STATUS" to "VECTOR.INGEST.STATUS pipeline_id - Get pipeline status",
+            "VECTOR.INGEST.LIST" to "VECTOR.INGEST.LIST - List ingest pipelines",
         )
 
         private val OPTIONS = listOf(

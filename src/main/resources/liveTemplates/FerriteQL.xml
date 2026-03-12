@@ -222,4 +222,46 @@
             <option name="OTHER" value="true" />
         </context>
     </template>
+
+    <!-- Conversation Memory -->
+    <template name="convcreate" value="CONV.CREATE $USER_ID$ TITLE &quot;$TITLE$&quot;" description="Create conversation session" toReformat="false" toShortenFQNames="true">
+        <variable name="USER_ID" expression="" defaultValue="&quot;user1&quot;" alwaysStopAt="true"/>
+        <variable name="TITLE" expression="" defaultValue="New Conversation" alwaysStopAt="true"/>
+        <context><option name="OTHER" value="true"/></context>
+    </template>
+
+    <template name="convmessage" value="CONV.MESSAGE $CONV_ID$ $ROLE$ &quot;$CONTENT$&quot;" description="Add message to conversation" toReformat="false" toShortenFQNames="true">
+        <variable name="CONV_ID" expression="" defaultValue="&quot;conv1&quot;" alwaysStopAt="true"/>
+        <variable name="ROLE" expression="" defaultValue="user" alwaysStopAt="true"/>
+        <variable name="CONTENT" expression="" defaultValue="Hello" alwaysStopAt="true"/>
+        <context><option name="OTHER" value="true"/></context>
+    </template>
+
+    <!-- S3 Object Storage -->
+    <template name="s3put" value="S3.PUT $BUCKET$ $KEY$ &quot;$VALUE$&quot;" description="Put object into S3 bucket" toReformat="false" toShortenFQNames="true">
+        <variable name="BUCKET" expression="" defaultValue="&quot;mybucket&quot;" alwaysStopAt="true"/>
+        <variable name="KEY" expression="" defaultValue="&quot;mykey&quot;" alwaysStopAt="true"/>
+        <variable name="VALUE" expression="" defaultValue="data" alwaysStopAt="true"/>
+        <context><option name="OTHER" value="true"/></context>
+    </template>
+
+    <template name="s3get" value="S3.GET $BUCKET$ $KEY$" description="Get object from S3 bucket" toReformat="false" toShortenFQNames="true">
+        <variable name="BUCKET" expression="" defaultValue="&quot;mybucket&quot;" alwaysStopAt="true"/>
+        <variable name="KEY" expression="" defaultValue="&quot;mykey&quot;" alwaysStopAt="true"/>
+        <context><option name="OTHER" value="true"/></context>
+    </template>
+
+    <!-- Vector Ingest -->
+    <template name="vectoringest" value="VECTOR.INGEST.START $INDEX$ $SOURCE$" description="Start bulk vector ingest pipeline" toReformat="false" toShortenFQNames="true">
+        <variable name="INDEX" expression="" defaultValue="&quot;embeddings&quot;" alwaysStopAt="true"/>
+        <variable name="SOURCE" expression="" defaultValue="&quot;file:///data/vectors.csv&quot;" alwaysStopAt="true"/>
+        <context><option name="OTHER" value="true"/></context>
+    </template>
+
+    <!-- Policy Management -->
+    <template name="policycreate" value="POLICY.CREATE $NAME$ &quot;$RULES$&quot;" description="Create data access policy" toReformat="false" toShortenFQNames="true">
+        <variable name="NAME" expression="" defaultValue="&quot;readonly&quot;" alwaysStopAt="true"/>
+        <variable name="RULES" expression="" defaultValue="allow read *" alwaysStopAt="true"/>
+        <context><option name="OTHER" value="true"/></context>
+    </template>
 </templateSet>
