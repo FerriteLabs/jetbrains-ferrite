@@ -16,7 +16,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew build
 
   lint:
@@ -28,7 +28,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew detekt
 
   gitleaks:
@@ -52,6 +52,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew verifyPlugin
       - run: ./gradlew dependencies --configuration runtimeClasspath
