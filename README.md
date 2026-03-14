@@ -41,6 +41,9 @@ Code snippets for common operations in all supported languages:
 
 ## Installation
 
+> **Compatibility:** This plugin is versioned independently from the Ferrite server.
+> Plugin v1.x works with any Ferrite server v0.2.0 or later (same Redis protocol).
+
 ### From JetBrains Marketplace
 
 1. Open your JetBrains IDE (IntelliJ IDEA, PyCharm, WebStorm, etc.)
