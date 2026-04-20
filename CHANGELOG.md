@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-04-20
+
+### Added
+
+- Dev container configuration for zero-setup contributor onboarding
+- CodeQL security analysis workflow
+
 ## [1.2.0] - 2026-03-09
 
 ### Added
