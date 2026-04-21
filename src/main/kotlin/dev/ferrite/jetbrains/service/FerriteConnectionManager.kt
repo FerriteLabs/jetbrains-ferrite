@@ -20,7 +20,8 @@ class FerriteConnectionManager(private val project: Project) {
 
     // Timeout applied specifically to the TLS handshake phase to avoid hanging
     // on misconfigured or unreachable TLS endpoints.
-    private val tlsHandshakeTimeoutMs: Long = 5000L
+    private val tlsHandshakeTimeoutMs: Long
+        get() = FerriteSettings.getInstance().tlsHandshakeTimeoutMs.toLong()
 
     fun addConnection(config: ConnectionConfig) {
         connections[config.name] = config

@@ -20,6 +20,7 @@ class FerriteSettings : PersistentStateComponent<FerriteSettings.State> {
      * @property maxKeysToDisplay Upper limit on the number of keys shown in the key browser tree.
      * @property autoConnectOnOpen When true, the plugin automatically connects on project open.
      * @property connectionTimeoutMs Timeout in milliseconds for establishing a connection.
+     * @property tlsHandshakeTimeoutMs Timeout in milliseconds for the TLS handshake phase.
      */
     data class State(
         var defaultHost: String = "localhost",
@@ -28,6 +29,7 @@ class FerriteSettings : PersistentStateComponent<FerriteSettings.State> {
         var maxKeysToDisplay: Int = 1000,
         var autoConnectOnOpen: Boolean = false,
         var connectionTimeoutMs: Int = 15000,
+        var tlsHandshakeTimeoutMs: Int = 5000,
         var autoReconnect: Boolean = true,
         var reconnectDelayMs: Int = 3000
     )
@@ -63,6 +65,10 @@ class FerriteSettings : PersistentStateComponent<FerriteSettings.State> {
     var connectionTimeoutMs: Int
         get() = state.connectionTimeoutMs
         set(value) { state.connectionTimeoutMs = value }
+
+    var tlsHandshakeTimeoutMs: Int
+        get() = state.tlsHandshakeTimeoutMs
+        set(value) { state.tlsHandshakeTimeoutMs = value }
 
     var autoReconnect: Boolean
         get() = state.autoReconnect
