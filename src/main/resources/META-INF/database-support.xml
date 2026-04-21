@@ -1,3 +1,9 @@
 <idea-plugin>
-    <!-- Database integration extensions will be added here when the database plugin is available -->
+    <!-- Database tool window integration for IntelliJ Database plugin -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Register Ferrite as a known database type in the Database tool window -->
+        <database.dbms
+            implementation="dev.ferrite.jetbrains.database.FerriteDbms"
+            id="ferrite"/>
+    </extensions>
 </idea-plugin>
