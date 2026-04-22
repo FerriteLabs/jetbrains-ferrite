@@ -221,17 +221,17 @@ Compatible with all JetBrains IDEs version 2023.3+:
 
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](https://github.com/ferritelabs/ferrite/blob/main/CONTRIBUTING.md).
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-Apache 2.0 - See [LICENSE](https://github.com/ferritelabs/ferrite/blob/main/LICENSE) for details.
+Apache 2.0 - See [LICENSE](LICENSE) for details.
 
 ## 🌐 FerriteLabs Ecosystem
 
 | Repository | Description |
 |-----------|-------------|
-| [ferrite](https://github.com/ferritelabs/ferrite) | Core database engine (Rust, 12 crates) |
+| [ferrite](https://github.com/ferritelabs/ferrite) | Core database engine (Rust, 19 crates) |
 | [ferrite-docs](https://github.com/ferritelabs/ferrite-docs) | Documentation website |
 | [ferrite-ops](https://github.com/ferritelabs/ferrite-ops) | Docker, Helm, Grafana, packaging |
 | [ferrite-bench](https://github.com/ferritelabs/ferrite-bench) | Performance benchmarks |
