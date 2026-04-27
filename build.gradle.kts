@@ -1,8 +1,8 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.0.21"
-    id("org.jetbrains.intellij.platform") version "2.3.0"
-    id("io.gitlab.arturbosch.detekt") version "1.23.7"
+    id("org.jetbrains.kotlin.jvm") version "2.3.21"
+    id("org.jetbrains.intellij.platform") version "2.15.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.8"
 }
 
 group = "dev.ferrite"
@@ -16,9 +16,9 @@ repositories {
 }
 
 dependencies {
-    implementation("io.lettuce:lettuce-core:6.3.0.RELEASE")
+    implementation("io.lettuce:lettuce-core:7.5.1.RELEASE")
     testImplementation("junit:junit:4.13.2")
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
 
     intellijPlatform {
         intellijIdeaCommunity("2024.3.1")
