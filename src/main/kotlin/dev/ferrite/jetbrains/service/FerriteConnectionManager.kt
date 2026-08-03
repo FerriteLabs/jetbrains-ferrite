@@ -2,6 +2,7 @@ package dev.ferrite.jetbrains.service
 
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import dev.ferrite.jetbrains.settings.FerriteSettings
 import io.lettuce.core.RedisClient
@@ -36,6 +37,7 @@ class FerriteConnectionManager(private val project: Project) {
 
     fun getConnections(): List<ConnectionConfig> = connections.values.toList()
 
+    @Suppress("TooGenericExceptionCaught") // cleanup-and-rethrow on any connect failure
     fun connect(name: String): Boolean {
         val config = connections[name] ?: return false
 
@@ -91,55 +93,36 @@ class FerriteConnectionManager(private val project: Project) {
 
     fun getCommands(): RedisCommands<String, String>? = currentConnection?.sync()
 
+    @Suppress("TooGenericExceptionCaught") // console surfaces any driver error as text
     fun executeCommand(command: String): String {
         val commands = getCommands() ?: return "Error: Not connected"
 
-        try {
-            val parts = parseCommand(command)
-            if (parts.isEmpty()) return ""
-
-            val cmd = parts[0].uppercase()
-            val args = parts.drop(1).toTypedArray()
-
-            val commandType = try {
-                io.lettuce.core.protocol.CommandType.valueOf(cmd)
-            } catch (_: IllegalArgumentException) {
-                null
-            }
-
-            val result = if (commandType != null) {
-                commands.dispatch(
-                    commandType,
-                    io.lettuce.core.output.StatusOutput(io.lettuce.core.codec.StringCodec.UTF8),
-                    io.lettuce.core.protocol.CommandArgs(io.lettuce.core.codec.StringCodec.UTF8).apply {
-                        args.forEach { add(it) }
-                    }
-                )
+        return try {
+            val parts = FerriteCommandLine.parse(command)
+            if (parts.isEmpty()) {
+                ""
             } else {
-                // Ferrite-specific commands (VECTOR.*, SEMANTIC.*, TS.*, DOC.*, etc.)
-                // not in Lettuce's CommandType enum — dispatch as raw custom command
-                commands.dispatch(
-                    object : io.lettuce.core.protocol.ProtocolKeyword {
-                        override fun getBytes(): ByteArray = cmd.toByteArray(Charsets.US_ASCII)
-                        override fun name(): String = cmd
-                    },
+                val cmd = parts[0].uppercase()
+                val args = parts.drop(1).toTypedArray()
+                val result = commands.dispatch(
+                    FerriteCommandDispatch.resolveKeyword(cmd),
                     io.lettuce.core.output.StatusOutput(io.lettuce.core.codec.StringCodec.UTF8),
                     io.lettuce.core.protocol.CommandArgs(io.lettuce.core.codec.StringCodec.UTF8).apply {
                         args.forEach { add(it) }
                     }
                 )
+                result?.toString() ?: "(nil)"
             }
-
-            return result?.toString() ?: "(nil)"
         } catch (e: io.lettuce.core.RedisCommandExecutionException) {
-            return "Error: ${e.message}"
+            "Error: ${e.message}"
         } catch (e: io.lettuce.core.RedisConnectionException) {
-            return "Error: Connection lost — ${e.message}"
+            "Error: Connection lost — ${e.message}"
         } catch (e: Exception) {
-            return "Error: ${e.message}"
+            "Error: ${e.message}"
         }
     }
 
+    @Suppress("TooGenericExceptionCaught") // resilience: never surface scan failures to the UI
     fun scanKeys(pattern: String, count: Int): List<String> {
         val commands = getCommands() ?: return emptyList()
 
@@ -159,63 +142,36 @@ class FerriteConnectionManager(private val project: Project) {
 
             return keys.take(count)
         } catch (e: Exception) {
+            LOG.warn("Ferrite SCAN failed for pattern '$pattern'", e)
             return emptyList()
         }
     }
 
+    @Suppress("TooGenericExceptionCaught") // resilience: unknown type on any lookup failure
     fun getKeyType(key: String): String {
         val commands = getCommands() ?: return "unknown"
         return try {
             commands.type(key) ?: "unknown"
         } catch (e: Exception) {
+            LOG.warn("Ferrite TYPE failed for key '$key'", e)
             "unknown"
         }
     }
 
+    @Suppress("TooGenericExceptionCaught") // resilience: report any info failure as text
     fun getServerInfo(): String {
         val commands = getCommands() ?: return "Not connected"
         return try {
             commands.info() ?: "No info available"
         } catch (e: Exception) {
+            LOG.warn("Ferrite INFO failed", e)
             "Error: ${e.message}"
         }
     }
 
-    private fun parseCommand(command: String): List<String> {
-        val parts = mutableListOf<String>()
-        var current = StringBuilder()
-        var inQuote = false
-        var quoteChar = ' '
-
-        for (char in command) {
-            when {
-                !inQuote && (char == '"' || char == '\'') -> {
-                    inQuote = true
-                    quoteChar = char
-                }
-                inQuote && char == quoteChar -> {
-                    inQuote = false
-                }
-                !inQuote && char.isWhitespace() -> {
-                    if (current.isNotEmpty()) {
-                        parts.add(current.toString())
-                        current = StringBuilder()
-                    }
-                }
-                else -> {
-                    current.append(char)
-                }
-            }
-        }
-
-        if (current.isNotEmpty()) {
-            parts.add(current.toString())
-        }
-
-        return parts
-    }
-
     companion object {
+        private val LOG = Logger.getInstance(FerriteConnectionManager::class.java)
+
         fun getInstance(project: Project): FerriteConnectionManager = project.service()
     }
 
