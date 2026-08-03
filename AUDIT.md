@@ -14,12 +14,12 @@ Branch: `refactor/clean-code-srp` · Baseline: `fe75e10`
 
 | ID | Location | Issue | Actors (SRP) | Cost | Risk |
 |----|----------|-------|--------------|------|------|
-| STYLE-000 | 12 flagged files (main+test) | ~135 auto-correctable formatting violations (`ArgumentListWrapping`, `Wrapping`, `NoMultipleSpaces`, `NoWildcardImports`, `ImportOrdering`, `PropertyWrapping`, `MultiLineIfElse`, `Spacing*`, `NoBlankLineBeforeRbrace`) | n/a (mechanical) | Low | Low — autocorrect only rewrites flagged files; no semantic change |
+| STYLE-000 | 17 flagged files (main+test) | ~135 auto-correctable formatting violations (`ArgumentListWrapping`, `Wrapping`, `NoMultipleSpaces`, `NoWildcardImports`, `ImportOrdering`, `PropertyWrapping`, `MultiLineIfElse`, `Spacing*`, `NoBlankLineBeforeRbrace`) | n/a (mechanical) | Low | Low — autocorrect only rewrites flagged files; no semantic change |
 | SRP-001 | `service/FerriteConnectionManager.kt` | God-class mixing (a) connection lifecycle, (b) RESP command-line parsing, (c) Lettuce-vs-raw dispatch decision, (d) exception→string mapping; `executeCommand` has 6 returns (`ReturnCount`); 5× `TooGenericExceptionCaught`; 2× `SwallowedException` | connection lifecycle owner · command-line parser · dispatch-keyword resolver | Med | Med — must preserve exact error strings and raw Ferrite dispatch |
 | SRP-002 | `language/FerriteQLLexer.kt` | `advance()` is a 71-line, cyclomatic-46 god method (`LongMethod`, `CyclomaticComplexMethod`); 2× `ComplexCondition` | token scanner (per-token-kind scan decisions) | Med | Med — lexer output must be byte-for-byte identical |
 | SRP-003 | `toolwindow/FerriteToolWindow.kt` | UI construction interleaved with state/decision logic (pool-status text, key-list model building) | UI builder · view-state deriver | Low | Low — pure helpers, no UI-contract change |
 | QUAL-002 | `language/FerriteQLAnnotator.kt` | `annotate()` has 6 returns (`ReturnCount`) | annotator (kept single actor) | Low | Low — behavior preserved |
-| EXC-001 | `actions/ConnectAction.kt` | `TooGenericExceptionCaught` on `connect()` call | n/a | Low | Low — narrow catch, same notification |
+| EXC-001 | `actions/ConnectAction.kt` | Intentional catch-all on `connect()` needs an explicit behavior-preservation rationale | n/a | Low | Low — scoped suppression, same notification |
 | QUAL-001 | `settings/FerriteSettingsConfigurable.kt`, `language/FerriteQLCompletionContributor.kt` | Dead private members: `GRID_INSET`, `addLabeledRow`, `buildCommandLookup` (`UnusedPrivateMember/Property`) | n/a | Low | Low — unreferenced code removal |
 | QUAL-003 | `test/.../FerriteQLLexerTest.kt`, `test/.../ConnectionSettingsTest.kt` | Unused test helpers (`tokenTypes`/`tokenTexts`) now consumed by new tests; `DestructuringDeclarationWithTooManyEntries` on an intentional 6-component destructuring test | n/a | Low | Low — test-only |
 
@@ -31,7 +31,7 @@ Branch: `refactor/clean-code-srp` · Baseline: `fe75e10`
 4. **SRP-002** — `test` (pin lexer tokenization), then `refactor` (split `advance()` into per-token-kind scan helpers; resolve complexity).
 5. **SRP-003** — `refactor` (+test): extract pool-status/key-model decision helpers.
 6. **QUAL-002** — `refactor`: reduce annotator return count.
-7. **EXC-001** — `refactor`: narrow generic catch in `ConnectAction`.
+7. **EXC-001** — `refactor`: document and scoped-suppress the intentional catch-all in `ConnectAction`.
 8. **QUAL-001** — `refactor`: remove dead private members.
 9. **QUAL-003** — `test`: consume lexer helpers, suppress the intentional destructuring test.
 10. `build`: final `./gradlew build`.
