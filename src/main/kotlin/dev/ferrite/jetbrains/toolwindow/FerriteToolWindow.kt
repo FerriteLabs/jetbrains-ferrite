@@ -9,7 +9,16 @@ import dev.ferrite.jetbrains.language.FerriteIcons
 import dev.ferrite.jetbrains.service.FerriteConnectionManager
 import java.awt.BorderLayout
 import java.awt.Component
-import javax.swing.*
+import javax.swing.BoxLayout
+import javax.swing.DefaultListCellRenderer
+import javax.swing.DefaultListModel
+import javax.swing.JButton
+import javax.swing.JComponent
+import javax.swing.JLabel
+import javax.swing.JList
+import javax.swing.JPanel
+import javax.swing.JTextArea
+import javax.swing.JTextField
 
 class FerriteToolWindow(private val project: Project) {
     private val panel = SimpleToolWindowPanel(true, true)
@@ -167,12 +176,14 @@ class FerriteToolWindow(private val project: Project) {
     private fun updateConnectionsList() {
         val model = DefaultListModel<ConnectionItem>()
         connectionManager.getConnections().forEach { conn ->
-            model.addElement(ConnectionItem(
-                conn.name,
-                conn.host,
-                conn.port,
-                connectionManager.isConnected() && connectionManager.getCurrentConnectionName() == conn.name
-            ))
+            model.addElement(
+                ConnectionItem(
+                    conn.name,
+                    conn.host,
+                    conn.port,
+                    connectionManager.isConnected() && connectionManager.getCurrentConnectionName() == conn.name
+                )
+            )
         }
         connectionsList.model = model
     }

@@ -83,22 +83,41 @@ class FerriteQLSyntaxHighlighter : SyntaxHighlighterBase() {
         )
 
         private val TRANSACTION_COMMANDS = setOf(
-            "MULTI", "EXEC", "DISCARD", "WATCH", "UNWATCH"
+            "MULTI",
+            "EXEC",
+            "DISCARD",
+            "WATCH",
+            "UNWATCH"
         )
 
         private val SCRIPTING_COMMANDS = setOf(
-            "EVAL", "EVALSHA", "SCRIPT", "EVALSHA_RO", "EVAL_RO",
-            "FUNCTION", "FCALL", "FCALL_RO"
+            "EVAL",
+            "EVALSHA",
+            "SCRIPT",
+            "EVALSHA_RO",
+            "EVAL_RO",
+            "FUNCTION",
+            "FCALL",
+            "FCALL_RO"
         )
 
         private val CLUSTER_COMMANDS = setOf(
-            "CLUSTER", "READONLY", "READWRITE", "ASKING"
+            "CLUSTER",
+            "READONLY",
+            "READWRITE",
+            "ASKING"
         )
 
         // Ferrite-specific commands
         private val VECTOR_COMMANDS = setOf(
-            "VECTOR.CREATE", "VECTOR.ADD", "VECTOR.GET", "VECTOR.DEL",
-            "VECTOR.SEARCH", "VECTOR.INFO", "VECTOR.DIM", "VECTOR.COUNT"
+            "VECTOR.CREATE",
+            "VECTOR.ADD",
+            "VECTOR.GET",
+            "VECTOR.DEL",
+            "VECTOR.SEARCH",
+            "VECTOR.INFO",
+            "VECTOR.DIM",
+            "VECTOR.COUNT"
         )
 
         private val TIMESERIES_COMMANDS = setOf(
@@ -113,8 +132,14 @@ class FerriteQLSyntaxHighlighter : SyntaxHighlighterBase() {
         )
 
         private val GRAPH_COMMANDS = setOf(
-            "GRAPH.QUERY", "GRAPH.CREATE", "GRAPH.DELETE", "GRAPH.EXPLAIN",
-            "GRAPH.PROFILE", "GRAPH.LIST", "GRAPH.CONSTRAINT", "GRAPH.SLOWLOG"
+            "GRAPH.QUERY",
+            "GRAPH.CREATE",
+            "GRAPH.DELETE",
+            "GRAPH.EXPLAIN",
+            "GRAPH.PROFILE",
+            "GRAPH.LIST",
+            "GRAPH.CONSTRAINT",
+            "GRAPH.SLOWLOG"
         )
 
         private val SEARCH_COMMANDS = setOf(
@@ -131,8 +156,12 @@ class FerriteQLSyntaxHighlighter : SyntaxHighlighterBase() {
         )
 
         private val SEMANTIC_COMMANDS = setOf(
-            "SEMANTIC.SET", "SEMANTIC.GET", "SEMANTIC.SEARCH", "SEMANTIC.DEL",
-            "SEMANTIC.CACHE", "SEMANTIC.INVALIDATE"
+            "SEMANTIC.SET",
+            "SEMANTIC.GET",
+            "SEMANTIC.SEARCH",
+            "SEMANTIC.DEL",
+            "SEMANTIC.CACHE",
+            "SEMANTIC.INVALIDATE"
         )
 
         private val ALL_COMMANDS = STRING_COMMANDS + HASH_COMMANDS + LIST_COMMANDS +

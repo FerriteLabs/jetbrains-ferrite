@@ -1,9 +1,12 @@
 package dev.ferrite.jetbrains
 
+import com.intellij.psi.tree.IElementType
 import dev.ferrite.jetbrains.language.FerriteQLLexer
 import dev.ferrite.jetbrains.language.FerriteQLTokenTypes
-import com.intellij.psi.tree.IElementType
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -234,12 +237,12 @@ class FerriteQLParserTest {
     fun `Complex ZADD with options`() {
         val tokens = tokenize("ZADD myset NX GT 1.5 member1")
         val types = tokens.filter { it.type != FerriteQLTokenTypes.WHITESPACE }.map { it.type }
-        assertEquals(FerriteQLTokenTypes.COMMAND, types[0])  // ZADD
-        assertEquals(FerriteQLTokenTypes.KEY, types[1])      // myset
-        assertEquals(FerriteQLTokenTypes.OPTION, types[2])   // NX
-        assertEquals(FerriteQLTokenTypes.OPTION, types[3])   // GT
-        assertEquals(FerriteQLTokenTypes.NUMBER, types[4])   // 1.5
-        assertEquals(FerriteQLTokenTypes.KEY, types[5])      // member1
+        assertEquals(FerriteQLTokenTypes.COMMAND, types[0]) // ZADD
+        assertEquals(FerriteQLTokenTypes.KEY, types[1]) // myset
+        assertEquals(FerriteQLTokenTypes.OPTION, types[2]) // NX
+        assertEquals(FerriteQLTokenTypes.OPTION, types[3]) // GT
+        assertEquals(FerriteQLTokenTypes.NUMBER, types[4]) // 1.5
+        assertEquals(FerriteQLTokenTypes.KEY, types[5]) // member1
     }
 
     @Test
@@ -354,10 +357,11 @@ class FerriteQLParserTest {
         val command = parts[0].uppercase()
         val required = commandArgRequirements[command] ?: return null
         val argCount = parts.size - 1
-        return if (argCount < required)
+        return if (argCount < required) {
             "$command requires at least $required argument(s), got $argCount"
-        else
+        } else {
             null
+        }
     }
 
     @Test

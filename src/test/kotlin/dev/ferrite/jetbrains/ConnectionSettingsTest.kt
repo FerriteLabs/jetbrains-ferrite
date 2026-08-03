@@ -2,7 +2,12 @@ package dev.ferrite.jetbrains
 
 import dev.ferrite.jetbrains.service.FerriteConnectionManager.ConnectionConfig
 import dev.ferrite.jetbrains.settings.FerriteSettings
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertSame
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -465,6 +470,7 @@ class ConnectionSettingsTest {
         val whitespaceOnly = "   "
         assertTrue(whitespaceOnly.isBlank())
     }
+
     @Test
     fun `auto-reconnect defaults to true`() {
         val state = FerriteSettings.State()

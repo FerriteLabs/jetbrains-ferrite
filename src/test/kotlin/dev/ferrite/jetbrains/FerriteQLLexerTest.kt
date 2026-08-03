@@ -1,9 +1,12 @@
 package dev.ferrite.jetbrains
 
+import com.intellij.psi.tree.IElementType
 import dev.ferrite.jetbrains.language.FerriteQLLexer
 import dev.ferrite.jetbrains.language.FerriteQLTokenTypes
-import com.intellij.psi.tree.IElementType
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertSame
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -490,8 +493,11 @@ class FerriteQLLexerTest {
         val tokens = tokenize("GET :special")
         // colon starts an identifier token
         val keyToken = tokens.last()
-        assertEquals("The colon-prefixed token should be KEY or COMMAND", true,
-            keyToken.type == FerriteQLTokenTypes.KEY || keyToken.type == FerriteQLTokenTypes.COMMAND)
+        assertEquals(
+            "The colon-prefixed token should be KEY or COMMAND",
+            true,
+            keyToken.type == FerriteQLTokenTypes.KEY || keyToken.type == FerriteQLTokenTypes.COMMAND
+        )
         assertEquals(":special", keyToken.text)
     }
 
@@ -565,37 +571,37 @@ class FerriteQLLexerTest {
     fun `SET key value produces correct token sequence`() {
         val tokens = tokenize("SET mykey myvalue")
         assertEquals(5, tokens.size)
-        assertEquals(FerriteQLTokenTypes.COMMAND, tokens[0].type)    // SET
+        assertEquals(FerriteQLTokenTypes.COMMAND, tokens[0].type) // SET
         assertEquals(FerriteQLTokenTypes.WHITESPACE, tokens[1].type) // ' '
-        assertEquals(FerriteQLTokenTypes.KEY, tokens[2].type)        // mykey
+        assertEquals(FerriteQLTokenTypes.KEY, tokens[2].type) // mykey
         assertEquals(FerriteQLTokenTypes.WHITESPACE, tokens[3].type) // ' '
-        assertEquals(FerriteQLTokenTypes.KEY, tokens[4].type)        // myvalue
+        assertEquals(FerriteQLTokenTypes.KEY, tokens[4].type) // myvalue
     }
 
     @Test
     fun `SET key value EX seconds NX`() {
         val tokens = tokenize("SET mykey myvalue EX 60 NX")
         val types = tokens.map { it.type }
-        assertEquals(FerriteQLTokenTypes.COMMAND, types[0])     // SET
+        assertEquals(FerriteQLTokenTypes.COMMAND, types[0]) // SET
         assertEquals(FerriteQLTokenTypes.WHITESPACE, types[1])
-        assertEquals(FerriteQLTokenTypes.KEY, types[2])         // mykey
+        assertEquals(FerriteQLTokenTypes.KEY, types[2]) // mykey
         assertEquals(FerriteQLTokenTypes.WHITESPACE, types[3])
-        assertEquals(FerriteQLTokenTypes.KEY, types[4])         // myvalue
+        assertEquals(FerriteQLTokenTypes.KEY, types[4]) // myvalue
         assertEquals(FerriteQLTokenTypes.WHITESPACE, types[5])
-        assertEquals(FerriteQLTokenTypes.OPTION, types[6])      // EX
+        assertEquals(FerriteQLTokenTypes.OPTION, types[6]) // EX
         assertEquals(FerriteQLTokenTypes.WHITESPACE, types[7])
-        assertEquals(FerriteQLTokenTypes.NUMBER, types[8])      // 60
+        assertEquals(FerriteQLTokenTypes.NUMBER, types[8]) // 60
         assertEquals(FerriteQLTokenTypes.WHITESPACE, types[9])
-        assertEquals(FerriteQLTokenTypes.OPTION, types[10])     // NX
+        assertEquals(FerriteQLTokenTypes.OPTION, types[10]) // NX
     }
 
     @Test
     fun `HSET with quoted value`() {
         val tokens = tokenize("HSET user:1 name \"Alice\"")
-        assertEquals(FerriteQLTokenTypes.COMMAND, tokens[0].type)  // HSET
-        assertEquals(FerriteQLTokenTypes.KEY, tokens[2].type)      // user:1
-        assertEquals(FerriteQLTokenTypes.KEY, tokens[4].type)      // name
-        assertEquals(FerriteQLTokenTypes.STRING, tokens[6].type)   // "Alice"
+        assertEquals(FerriteQLTokenTypes.COMMAND, tokens[0].type) // HSET
+        assertEquals(FerriteQLTokenTypes.KEY, tokens[2].type) // user:1
+        assertEquals(FerriteQLTokenTypes.KEY, tokens[4].type) // name
+        assertEquals(FerriteQLTokenTypes.STRING, tokens[6].type) // "Alice"
     }
 
     @Test
@@ -653,7 +659,8 @@ class FerriteQLLexerTest {
         for (i in 1 until tokens.size) {
             assertEquals(
                 "Token ${i - 1} end should equal token $i start",
-                tokens[i - 1].end, tokens[i].start
+                tokens[i - 1].end,
+                tokens[i].start
             )
         }
     }
@@ -666,7 +673,12 @@ class FerriteQLLexerTest {
         val tokens = mutableListOf<Token>()
         while (lexer.tokenType != null) {
             tokens.add(
-                Token(lexer.tokenType, full.substring(lexer.tokenStart, lexer.tokenEnd), lexer.tokenStart, lexer.tokenEnd)
+                Token(
+                    lexer.tokenType,
+                    full.substring(lexer.tokenStart, lexer.tokenEnd),
+                    lexer.tokenStart,
+                    lexer.tokenEnd
+                )
             )
             lexer.advance()
         }

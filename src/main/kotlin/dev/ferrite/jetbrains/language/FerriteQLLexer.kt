@@ -63,7 +63,8 @@ class FerriteQLLexer : LexerBase() {
             c.isWhitespace() && c != '\n' && c != '\r' -> {
                 tokenEnd = tokenStart + 1
                 while (tokenEnd < bufferEnd && buffer[tokenEnd].isWhitespace() &&
-                    buffer[tokenEnd] != '\n' && buffer[tokenEnd] != '\r') {
+                    buffer[tokenEnd] != '\n' && buffer[tokenEnd] != '\r'
+                ) {
                     tokenEnd++
                 }
                 tokenType = FerriteQLTokenTypes.WHITESPACE
@@ -92,8 +93,11 @@ class FerriteQLLexer : LexerBase() {
             c.isLetter() || c == '_' || c == ':' || c == '.' -> {
                 tokenEnd = tokenStart + 1
                 while (tokenEnd < bufferEnd &&
-                    (buffer[tokenEnd].isLetterOrDigit() || buffer[tokenEnd] == '_' ||
-                        buffer[tokenEnd] == ':' || buffer[tokenEnd] == '.' || buffer[tokenEnd] == '-')) {
+                    (
+                        buffer[tokenEnd].isLetterOrDigit() || buffer[tokenEnd] == '_' ||
+                            buffer[tokenEnd] == ':' || buffer[tokenEnd] == '.' || buffer[tokenEnd] == '-'
+                        )
+                ) {
                     tokenEnd++
                 }
 

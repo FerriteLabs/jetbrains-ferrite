@@ -1,10 +1,13 @@
 package dev.ferrite.jetbrains
 
-import dev.ferrite.jetbrains.language.FerriteQLSyntaxHighlighter
-import dev.ferrite.jetbrains.language.FerriteQLTokenTypes
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.HighlighterColors
-import org.junit.Assert.*
+import dev.ferrite.jetbrains.language.FerriteQLSyntaxHighlighter
+import dev.ferrite.jetbrains.language.FerriteQLTokenTypes
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 

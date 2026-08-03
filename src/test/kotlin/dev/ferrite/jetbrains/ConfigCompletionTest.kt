@@ -2,7 +2,10 @@ package dev.ferrite.jetbrains
 
 import dev.ferrite.jetbrains.config.FerriteConfigFileType
 import dev.ferrite.jetbrains.language.FerriteQLSyntaxHighlighter
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -66,7 +69,8 @@ class ConfigCompletionTest {
 
     @Test
     fun `All standard Redis string commands are available for completion`() {
-        val stringCmds = listOf("GET", "SET", "SETNX", "SETEX", "MGET", "MSET", "INCR", "DECR", "INCRBY", "APPEND", "STRLEN")
+        val stringCmds =
+            listOf("GET", "SET", "SETNX", "SETEX", "MGET", "MSET", "INCR", "DECR", "INCRBY", "APPEND", "STRLEN")
         for (cmd in stringCmds) {
             assertTrue("$cmd should be a recognized command", highlighter.isCommand(cmd))
         }
@@ -277,8 +281,14 @@ class ConfigCompletionTest {
     @Test
     fun `Common ferrite toml section names follow expected patterns`() {
         val sections = listOf(
-            "server", "storage", "replication", "cluster", "security",
-            "logging", "metrics", "persistence"
+            "server",
+            "storage",
+            "replication",
+            "cluster",
+            "security",
+            "logging",
+            "metrics",
+            "persistence"
         )
         for (section in sections) {
             assertTrue("Section '$section' should be lowercase", section == section.lowercase())
