@@ -148,18 +148,15 @@ class FerriteToolWindow(private val project: Project) {
     }
 
     private fun refreshKeys() {
-        val keys = connectionManager.scanKeys("*", 1000)
-        val model = DefaultListModel<KeyItem>()
-        keys.forEach { key ->
-            val type = connectionManager.getKeyType(key)
-            model.addElement(KeyItem(key, type))
-        }
-        keysList.model = model
+        loadKeys(FerriteToolWindowState.SCAN_ALL_PATTERN)
     }
 
     private fun filterKeys(pattern: String) {
-        val effectivePattern = pattern.ifBlank { "*" }
-        val keys = connectionManager.scanKeys(effectivePattern, 1000)
+        loadKeys(FerriteToolWindowState.effectiveScanPattern(pattern))
+    }
+
+    private fun loadKeys(pattern: String) {
+        val keys = connectionManager.scanKeys(pattern, MAX_KEYS)
         val model = DefaultListModel<KeyItem>()
         keys.forEach { key ->
             val type = connectionManager.getKeyType(key)
@@ -189,9 +186,9 @@ class FerriteToolWindow(private val project: Project) {
     }
 
     private fun updatePoolStatus() {
-        val status = if (connectionManager.isConnected()) "Pool: active (1 conn)" else "Pool: idle"
-        poolStatusLabel.text = status
+        poolStatusLabel.text = FerriteToolWindowState.poolStatusText(connectionManager.isConnected())
     }
+
     fun getContent(): JComponent = panel
 
     data class ConnectionItem(
@@ -205,6 +202,10 @@ class FerriteToolWindow(private val project: Project) {
         val key: String,
         val type: String
     )
+
+    private companion object {
+        private const val MAX_KEYS = 1000
+    }
 
     class ConnectionCellRenderer : DefaultListCellRenderer() {
         override fun getListCellRendererComponent(
