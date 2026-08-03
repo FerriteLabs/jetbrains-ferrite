@@ -49,10 +49,6 @@ class FerriteQLLexerTest {
         return tokens
     }
 
-    private fun tokenTypes(input: String): List<IElementType?> = tokenize(input).map { it.type }
-
-    private fun tokenTexts(input: String): List<String> = tokenize(input).map { it.text }
-
     // -----------------------------------------------------------------------
     // Command tokenization
     // -----------------------------------------------------------------------
