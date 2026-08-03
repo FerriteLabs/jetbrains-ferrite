@@ -175,6 +175,7 @@ class ConnectionSettingsTest {
         assertEquals("", original.password)
     }
 
+    @Suppress("DestructuringDeclarationWithTooManyEntries") // test intentionally destructures all 6 components
     @Test
     fun `ConnectionConfig destructuring`() {
         val config = ConnectionConfig(
