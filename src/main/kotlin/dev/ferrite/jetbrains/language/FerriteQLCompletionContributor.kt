@@ -267,9 +267,3 @@ class FerriteQLCompletionProvider : CompletionProvider<CompletionParameters>() {
         }
     }
 }
-
-// Utility: build a lookup element with consistent styling
-private fun buildCommandLookup(command: String, description: String): LookupElementBuilder =
-    LookupElementBuilder.create(command)
-        .withTypeText(description)
-        .bold()

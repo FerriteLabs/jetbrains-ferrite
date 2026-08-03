@@ -25,10 +25,6 @@ class FerriteSettingsConfigurable : Configurable {
 
     override fun getDisplayName(): String = "Ferrite"
 
-    private companion object {
-        private const val GRID_INSET = 5
-    }
-
     override fun createComponent(): JComponent {
         val p = JPanel(GridBagLayout())
         val gbc = GridBagConstraints().apply {
@@ -127,16 +123,5 @@ class FerriteSettingsConfigurable : Configurable {
 
     override fun disposeUIResources() {
         panel = null
-    }
-
-    private fun addLabeledRow(panel: JPanel, gbc: GridBagConstraints, row: Int, label: String, component: JComponent) {
-        gbc.gridx = 0
-        gbc.gridy = row
-        gbc.weightx = 0.0
-        gbc.gridwidth = 1
-        panel.add(JBLabel(label), gbc)
-        gbc.gridx = 1
-        gbc.weightx = 1.0
-        panel.add(component, gbc)
     }
 }
