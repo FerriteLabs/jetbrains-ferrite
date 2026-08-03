@@ -30,6 +30,7 @@ class ConnectAction : AnAction() {
         connectTo(project, connectionManager, target.name)
     }
 
+    @Suppress("TooGenericExceptionCaught") // any connect failure is surfaced as an error notification
     private fun connectTo(
         project: com.intellij.openapi.project.Project,
         connectionManager: FerriteConnectionManager,
