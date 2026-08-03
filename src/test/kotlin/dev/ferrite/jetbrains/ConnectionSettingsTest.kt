@@ -465,8 +465,6 @@ class ConnectionSettingsTest {
         val whitespaceOnly = "   "
         assertTrue(whitespaceOnly.isBlank())
     }
-}
-
     @Test
     fun `auto-reconnect defaults to true`() {
         val state = FerriteSettings.State()
@@ -485,8 +483,10 @@ class ConnectionSettingsTest {
 
     // Verify settings survive IDE restart cycle
     fun testSettingsPersistAfterReload() {
+        val settings = FerriteSettings()
         val state = settings.state
         assertNotNull(state)
-        assertEquals(settings.host, state.host)
-        assertEquals(settings.port, state.port)
+        assertEquals(settings.defaultHost, state.defaultHost)
+        assertEquals(settings.defaultPort, state.defaultPort)
     }
+}

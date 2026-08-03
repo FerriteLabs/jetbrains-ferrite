@@ -165,13 +165,11 @@ class FerriteQLLexerTest {
     }
 
     @Test
-    fun `Known command word in non-first position is still COMMAND`() {
-        // After the first token has been consumed, subsequent known commands
-        // fall into the `highlighter.isCommand(text)` branch (second check)
+    fun `Known option word in non-first position is OPTION`() {
         val tokens = tokenize("SET mykey GET")
-        // SET=COMMAND, ' '=WS, mykey=KEY, ' '=WS, GET=COMMAND
+        // GET is both a command and the SET GET option; argument position uses option precedence.
         assertEquals(FerriteQLTokenTypes.COMMAND, tokens[0].type)
-        assertEquals(FerriteQLTokenTypes.COMMAND, tokens[4].type)
+        assertEquals(FerriteQLTokenTypes.OPTION, tokens[4].type)
     }
 
     // -----------------------------------------------------------------------
