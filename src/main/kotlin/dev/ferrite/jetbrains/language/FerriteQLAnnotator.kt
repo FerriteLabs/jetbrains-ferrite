@@ -67,7 +67,7 @@ class FerriteQLAnnotator : Annotator {
         "SETBIT" to 3, "GETBIT" to 2, "BITCOUNT" to 1, "BITOP" to 3,
         // Ferrite: Vector Search
         "VECTOR.CREATE" to 3, "VECTOR.ADD" to 3, "VECTOR.SEARCH" to 3,
-        "VECTOR.DELETE" to 2, "VECTOR.INFO" to 1,
+        "VECTOR.DEL" to 2, "VECTOR.INFO" to 1,
         "VECTOR.INDEX.CREATE" to 3, "VECTOR.INDEX.DROP" to 1,
         // Ferrite: Semantic Cache
         "SEMANTIC.SET" to 2, "SEMANTIC.GET" to 1, "SEMANTIC.DEL" to 1,
