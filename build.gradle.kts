@@ -32,6 +32,14 @@ detekt {
     buildUponDefaultConfig = true
 }
 
+intellijPlatform {
+    pluginVerification {
+        ides {
+            ide("IC", "2024.3.1")
+        }
+    }
+}
+
 tasks {
     withType<JavaCompile> {
         sourceCompatibility = "21"
@@ -87,4 +95,3 @@ tasks {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
-
