@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - Unreleased (planned)
+
+### Changed
+
+- Isolated command-line parsing, Ferrite-specific dispatch decisions, lexer token scanning, and tool-window state decisions
+- Hardened exception handling while preserving Lettuce and raw Ferrite command behavior
+- Aligned annotations on the canonical `VECTOR.DEL` command
+- Restored deterministic tests, Detekt, build, and configured plugin-verifier gates
+- Use reachable GitHub project and documentation links until the hosted documentation endpoint is deployed and verified
+- Expanded the verified JetBrains compatibility range through the latest available 2025.3 platform line
+- Updated the Gradle wrapper and IntelliJ Platform Gradle plugin to support the unified 2025.3 distribution
+- Attach the packaged plugin ZIP to GitHub releases for persistent manual installation
+- Block Marketplace publication until a valid monitored vendor email is configured
+
+## [1.3.1] - 2026-04-22
+
+### Added
+
+- User-configurable TLS handshake timeout
+- Ferrite registration in the JetBrains Database tool window
+
+### Fixed
+
+- Added CI build timeouts and corrected stale documentation links
+
 ## [1.3.0] - 2026-04-20
 
 ### Added
@@ -56,9 +81,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Live Templates (Java)**: Client setup with Lettuce and Jedis
 - **IDE Support**: Compatible with all JetBrains IDEs 2023.3+ (IntelliJ IDEA, PyCharm, WebStorm, PhpStorm, RubyMine, GoLand, Rider, CLion, DataGrip, Android Studio)
 
-[Unreleased]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.3.1...v1.4.0
+[1.3.1]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/ferritelabs/jetbrains-ferrite/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/ferritelabs/jetbrains-ferrite/releases/tag/v1.0.0
-
-

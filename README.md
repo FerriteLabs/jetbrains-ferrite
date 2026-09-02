@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 [![JetBrains Marketplace](https://img.shields.io/badge/JetBrains-Marketplace-000000)](https://plugins.jetbrains.com/plugin/ferritelabs-ferrite)
 
-Official JetBrains IDE plugin for [Ferrite](https://ferrite.dev) - a high-performance, tiered-storage key-value store.
+Official JetBrains IDE plugin for [Ferrite](https://github.com/ferritelabs/ferrite) - a high-performance, tiered-storage key-value store.
 
 ## Features
 
@@ -54,7 +54,7 @@ Code snippets for common operations in all supported languages:
 
 ### From Disk
 
-1. Download the plugin ZIP from [releases](https://github.com/ferritelabs/ferrite/releases)
+1. Download the plugin ZIP from [releases](https://github.com/ferritelabs/jetbrains-ferrite/releases)
 2. Go to **Settings → Plugins → ⚙️ → Install Plugin from Disk**
 3. Select the downloaded ZIP file
 4. Restart the IDE
@@ -241,10 +241,7 @@ Apache 2.0 - See [LICENSE](LICENSE) for details.
 
 ## Resources
 
-- [Ferrite Documentation](https://ferrite.dev/docs)
+- [Ferrite Documentation](https://github.com/ferritelabs/ferrite-docs)
 - [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ferrite.ferrite-vscode)
 - [GitHub Repository](https://github.com/ferritelabs/ferrite)
 - [Issue Tracker](https://github.com/ferritelabs/ferrite/issues)
-
-
-

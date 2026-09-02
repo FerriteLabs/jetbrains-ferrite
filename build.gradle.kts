@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "dev.ferrite"
-version = "1.3.0"
+version = "1.4.0"
 
 repositories {
     mavenCentral()
@@ -55,7 +55,7 @@ tasks {
 
         pluginDescription.set("""
             <h1>Ferrite for JetBrains IDEs</h1>
-            <p>Official JetBrains IDE plugin for <a href="https://ferrite.dev">Ferrite</a> -
+            <p>Official JetBrains IDE plugin for <a href="https://github.com/ferritelabs/ferrite">Ferrite</a> -
             a high-performance, tiered-storage key-value store.</p>
 
             <h2>Features</h2>
@@ -68,6 +68,13 @@ tasks {
         """.trimIndent())
 
         changeNotes.set("""
+            <h2>1.4.0</h2>
+            <ul>
+                <li>Isolate command parsing, dispatch, lexer scanning, and tool-window decisions</li>
+                <li>Align VECTOR.DEL language metadata with the Ferrite command contract</li>
+                <li>Restore deterministic tests, Detekt, build, and plugin verification gates</li>
+                <li>Use reachable GitHub project links until the hosted documentation endpoint is verified</li>
+            </ul>
             <h2>1.1.0</h2>
             <ul>
                 <li>Fix FerriteSettings syntax error</li>
