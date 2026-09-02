@@ -13,6 +13,9 @@ on:
         default: 'false'
         type: boolean
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Build & Package
@@ -24,6 +27,15 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
+      - name: Verify release tag matches plugin version
+        if: github.event_name == 'release'
+        run: |
+          VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' build.gradle.kts)"
+          EXPECTED_TAG="v${VERSION}"
+          if [ "${GITHUB_REF_NAME}" != "${EXPECTED_TAG}" ]; then
+            echo "::error::Release tag ${GITHUB_REF_NAME} does not match expected ${EXPECTED_TAG}"
+            exit 1
+          fi
       - run: ./gradlew buildPlugin
       - name: Upload plugin artifact
         uses: actions/upload-artifact@v4
@@ -31,11 +43,29 @@ jobs:
           name: ferrite-jetbrains-plugin
           path: build/distributions/*.zip
 
+  release-asset:
+    name: Attach plugin to GitHub Release
+    needs: build
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ferrite-jetbrains-plugin
+      - name: Upload plugin ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$RELEASE_TAG" ./*.zip --clobber --repo "$GH_REPO"
+
   publish:
     name: Publish to JetBrains Marketplace
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' || github.event_name == 'repository_dispatch' || (github.event_name == 'workflow_dispatch' && inputs.publish == true)
+    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.publish == true)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -43,6 +73,18 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
+      - name: Require exact release tag and Marketplace vendor contact
+        run: |
+          VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' build.gradle.kts)"
+          EXPECTED_TAG="v${VERSION}"
+          if [ "$GITHUB_REF" != "refs/tags/${EXPECTED_TAG}" ]; then
+            echo "::error::Marketplace publication must run from refs/tags/${EXPECTED_TAG}"
+            exit 1
+          fi
+          if ! grep -Eq '<vendor[^>]+email="[^"]+@[^"]+"' src/main/resources/META-INF/plugin.xml; then
+            echo "::error::JetBrains Marketplace publication requires a valid monitored vendor email in plugin.xml"
+            exit 1
+          fi
       - name: Publish plugin
         run: ./gradlew publishPlugin
         env:

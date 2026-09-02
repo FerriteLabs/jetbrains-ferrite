@@ -41,8 +41,7 @@ Code snippets for common operations in all supported languages:
 
 ## Installation
 
-> **Compatibility:** This plugin is versioned independently from the Ferrite server.
-> Plugin v1.x works with any Ferrite server v0.2.0 or later (same Redis protocol).
+> **Compatibility:** This plugin is versioned independently from the Ferrite server. Plugin v1.4 supports JetBrains 2024.3 through 2025.3 and Ferrite server v0.2.0 or later.
 
 ### From JetBrains Marketplace
 
@@ -185,7 +184,7 @@ cd jetbrains-ferrite
 
 ## Supported IDEs
 
-Compatible with all JetBrains IDEs version 2023.3+:
+Compatible with JetBrains IDEs based on platform builds 243 through 253 (2024.3 through 2025.3):
 
 - IntelliJ IDEA (Community & Ultimate)
 - PyCharm (Community & Professional)

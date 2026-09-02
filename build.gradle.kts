@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.0.21"
-    id("org.jetbrains.intellij.platform") version "2.3.0"
+    id("org.jetbrains.intellij.platform") version "2.18.1"
     id("io.gitlab.arturbosch.detekt") version "1.23.7"
 }
 
@@ -23,7 +23,6 @@ dependencies {
     intellijPlatform {
         intellijIdeaCommunity("2024.3.1")
         bundledPlugin("com.intellij.java")
-        instrumentationTools()
     }
 }
 
@@ -35,8 +34,21 @@ detekt {
 intellijPlatform {
     pluginVerification {
         ides {
-            ide("IC", "2024.3.1")
+            create(
+                org.jetbrains.intellij.platform.gradle.IntelliJPlatformType.IntellijIdeaCommunity,
+                "2024.3.1",
+            )
+            create(
+                org.jetbrains.intellij.platform.gradle.IntelliJPlatformType.IntellijIdea,
+                "2025.3",
+            )
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 
@@ -45,13 +57,9 @@ tasks {
         sourceCompatibility = "21"
         targetCompatibility = "21"
     }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "21"
-    }
-
     patchPluginXml {
         sinceBuild.set("243")
-        untilBuild.set("251.*")
+        untilBuild.set("253.*")
 
         pluginDescription.set("""
             <h1>Ferrite for JetBrains IDEs</h1>
