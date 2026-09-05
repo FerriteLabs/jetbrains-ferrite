@@ -3,7 +3,8 @@ package dev.ferrite.jetbrains
 import dev.ferrite.jetbrains.language.FerriteQLLexer
 import dev.ferrite.jetbrains.language.FerriteQLSyntaxHighlighter
 import dev.ferrite.jetbrains.language.FerriteQLTokenTypes
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -31,7 +32,7 @@ class CommandCompletionIntegrationTest {
 
     private fun firstTokenType(input: String): com.intellij.psi.tree.IElementType? {
         lexer.start(input, 0, input.length, 0)
-        return lexer.tokenType  // may be null if input is empty
+        return lexer.tokenType // may be null if input is empty
     }
 
     // -----------------------------------------------------------------------

@@ -1,7 +1,12 @@
 package dev.ferrite.jetbrains.run
 
 import com.intellij.execution.Executor
-import com.intellij.execution.configurations.*
+import com.intellij.execution.configurations.ConfigurationFactory
+import com.intellij.execution.configurations.ConfigurationType
+import com.intellij.execution.configurations.RunConfiguration
+import com.intellij.execution.configurations.RunConfigurationBase
+import com.intellij.execution.configurations.RunConfigurationOptions
+import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
@@ -30,7 +35,6 @@ class FerriteRunConfigurationFactory(type: ConfigurationType) : ConfigurationFac
 
     override fun createTemplateConfiguration(project: Project): RunConfiguration =
         FerriteRunConfiguration(project, this, "FerriteQL")
-
 }
 
 class FerriteRunConfiguration(
@@ -72,14 +76,20 @@ class FerriteRunSettingsEditor : SettingsEditor<FerriteRunConfiguration>() {
             fill = java.awt.GridBagConstraints.HORIZONTAL
         }
 
-        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.0
+        gbc.gridx = 0
+        gbc.gridy = 0
+        gbc.weightx = 0.0
         panel.add(com.intellij.ui.components.JBLabel("Script path:"), gbc)
-        gbc.gridx = 1; gbc.weightx = 1.0
+        gbc.gridx = 1
+        gbc.weightx = 1.0
         panel.add(scriptPathField, gbc)
 
-        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0.0
+        gbc.gridx = 0
+        gbc.gridy = 1
+        gbc.weightx = 0.0
         panel.add(com.intellij.ui.components.JBLabel("Connection:"), gbc)
-        gbc.gridx = 1; gbc.weightx = 1.0
+        gbc.gridx = 1
+        gbc.weightx = 1.0
         panel.add(connectionField, gbc)
 
         return panel

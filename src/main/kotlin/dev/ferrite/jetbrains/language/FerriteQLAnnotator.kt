@@ -67,7 +67,7 @@ class FerriteQLAnnotator : Annotator {
         "SETBIT" to 3, "GETBIT" to 2, "BITCOUNT" to 1, "BITOP" to 3,
         // Ferrite: Vector Search
         "VECTOR.CREATE" to 3, "VECTOR.ADD" to 3, "VECTOR.SEARCH" to 3,
-        "VECTOR.DELETE" to 2, "VECTOR.INFO" to 1,
+        "VECTOR.DEL" to 2, "VECTOR.INFO" to 1,
         "VECTOR.INDEX.CREATE" to 3, "VECTOR.INDEX.DROP" to 1,
         // Ferrite: Semantic Cache
         "SEMANTIC.SET" to 2, "SEMANTIC.GET" to 1, "SEMANTIC.DEL" to 1,
@@ -92,38 +92,42 @@ class FerriteQLAnnotator : Annotator {
     )
 
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
-        val node = element.node ?: return
-
-        // Only annotate on full lines starting from COMMAND tokens
-        if (node.elementType != FerriteQLTokenTypes.COMMAND) return
-
-        val lineText = getLineText(element) ?: return
-        val trimmed = lineText.trim()
-        if (trimmed.isBlank() || trimmed.startsWith("#")) return
-
-        val parts = parseCommandLine(trimmed)
-        if (parts.isEmpty()) return
-
+        val parts = commandLineParts(element) ?: return
         val command = parts[0].uppercase()
-
-        // Check if command is known
-        if (!highlighter.isCommand(command)) {
+        if (highlighter.isCommand(command)) {
+            validateArgumentCount(element, holder, command, parts.size - 1)
+        } else {
             holder.newAnnotation(HighlightSeverity.ERROR, "Unknown command: $command")
                 .range(element)
                 .create()
-            return
         }
+    }
 
-        // Validate argument count
-        val requiredArgs = commandArgRequirements[command]
-        if (requiredArgs != null) {
-            val argCount = parts.size - 1
-            if (argCount < requiredArgs) {
-                holder.newAnnotation(
-                    HighlightSeverity.WARNING,
-                    "$command requires at least $requiredArgs argument(s), got $argCount"
-                ).range(element).create()
-            }
+    /**
+     * Applies the annotation preconditions and returns the parsed command-line
+     * parts, or null when the element is not an annotatable command line.
+     */
+    private fun commandLineParts(element: PsiElement): List<String>? {
+        val node = element.node
+        // Only annotate on full lines starting from COMMAND tokens
+        if (node == null || node.elementType != FerriteQLTokenTypes.COMMAND) return null
+        val trimmed = getLineText(element)?.trim() ?: return null
+        if (trimmed.isBlank() || trimmed.startsWith("#")) return null
+        return parseCommandLine(trimmed).ifEmpty { null }
+    }
+
+    private fun validateArgumentCount(
+        element: PsiElement,
+        holder: AnnotationHolder,
+        command: String,
+        argCount: Int,
+    ) {
+        val requiredArgs = commandArgRequirements[command] ?: return
+        if (argCount < requiredArgs) {
+            holder.newAnnotation(
+                HighlightSeverity.WARNING,
+                "$command requires at least $requiredArgs argument(s), got $argCount"
+            ).range(element).create()
         }
     }
 

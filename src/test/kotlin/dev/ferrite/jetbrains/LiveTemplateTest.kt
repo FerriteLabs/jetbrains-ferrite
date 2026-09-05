@@ -1,11 +1,13 @@
 package dev.ferrite.jetbrains
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
-import javax.xml.parsers.DocumentBuilderFactory
 import org.w3c.dom.Element
 import org.w3c.dom.NodeList
 import java.io.File
+import javax.xml.parsers.DocumentBuilderFactory
 
 /**
  * Unit tests for the FerriteQL live template definitions.
@@ -23,7 +25,9 @@ class LiveTemplateTest {
         val file = File(resourceBase, filename)
         if (!file.exists()) {
             // In CI the working directory may differ; try absolute
-            val altFile = File("/Users/josedab/Code/FerriteLabs/jetbrains-ferrite/src/main/resources/liveTemplates/$filename")
+            val altFile = File(
+                "/Users/josedab/Code/FerriteLabs/jetbrains-ferrite/src/main/resources/liveTemplates/$filename"
+            )
             if (!altFile.exists()) return emptyList()
             return parseTemplateXml(altFile)
         }
@@ -329,7 +333,8 @@ class LiveTemplateTest {
         for (t in templates) {
             assertEquals(
                 "Template '${t.name}' should have toReformat=false",
-                "false", t.toReformat
+                "false",
+                t.toReformat
             )
         }
     }
@@ -371,15 +376,20 @@ class LiveTemplateTest {
     @Test
     fun `All template files have unique names within their group`() {
         val files = listOf(
-            "FerriteQL.xml", "FerriteTypeScript.xml", "FerritePython.xml",
-            "FerriteRust.xml", "FerriteJava.xml", "FerriteGo.xml"
+            "FerriteQL.xml",
+            "FerriteTypeScript.xml",
+            "FerritePython.xml",
+            "FerriteRust.xml",
+            "FerriteJava.xml",
+            "FerriteGo.xml"
         )
         for (filename in files) {
             val templates = parseTemplateFile(filename)
             val names = templates.map { it.name }
             assertEquals(
                 "Template names in $filename must be unique",
-                names.size, names.toSet().size
+                names.size,
+                names.toSet().size
             )
         }
     }
@@ -387,8 +397,12 @@ class LiveTemplateTest {
     @Test
     fun `All template files have descriptions for every template`() {
         val files = listOf(
-            "FerriteQL.xml", "FerriteTypeScript.xml", "FerritePython.xml",
-            "FerriteRust.xml", "FerriteJava.xml", "FerriteGo.xml"
+            "FerriteQL.xml",
+            "FerriteTypeScript.xml",
+            "FerritePython.xml",
+            "FerriteRust.xml",
+            "FerriteJava.xml",
+            "FerriteGo.xml"
         )
         for (filename in files) {
             val templates = parseTemplateFile(filename)
@@ -404,8 +418,12 @@ class LiveTemplateTest {
     @Test
     fun `All template files have context blocks for every template`() {
         val files = listOf(
-            "FerriteQL.xml", "FerriteTypeScript.xml", "FerritePython.xml",
-            "FerriteRust.xml", "FerriteJava.xml", "FerriteGo.xml"
+            "FerriteQL.xml",
+            "FerriteTypeScript.xml",
+            "FerritePython.xml",
+            "FerriteRust.xml",
+            "FerriteJava.xml",
+            "FerriteGo.xml"
         )
         for (filename in files) {
             val templates = parseTemplateFile(filename)

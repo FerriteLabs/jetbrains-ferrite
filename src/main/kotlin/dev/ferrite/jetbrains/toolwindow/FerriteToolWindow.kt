@@ -9,7 +9,16 @@ import dev.ferrite.jetbrains.language.FerriteIcons
 import dev.ferrite.jetbrains.service.FerriteConnectionManager
 import java.awt.BorderLayout
 import java.awt.Component
-import javax.swing.*
+import javax.swing.BoxLayout
+import javax.swing.DefaultListCellRenderer
+import javax.swing.DefaultListModel
+import javax.swing.JButton
+import javax.swing.JComponent
+import javax.swing.JLabel
+import javax.swing.JList
+import javax.swing.JPanel
+import javax.swing.JTextArea
+import javax.swing.JTextField
 
 class FerriteToolWindow(private val project: Project) {
     private val panel = SimpleToolWindowPanel(true, true)
@@ -139,18 +148,15 @@ class FerriteToolWindow(private val project: Project) {
     }
 
     private fun refreshKeys() {
-        val keys = connectionManager.scanKeys("*", 1000)
-        val model = DefaultListModel<KeyItem>()
-        keys.forEach { key ->
-            val type = connectionManager.getKeyType(key)
-            model.addElement(KeyItem(key, type))
-        }
-        keysList.model = model
+        loadKeys(FerriteToolWindowState.SCAN_ALL_PATTERN)
     }
 
     private fun filterKeys(pattern: String) {
-        val effectivePattern = pattern.ifBlank { "*" }
-        val keys = connectionManager.scanKeys(effectivePattern, 1000)
+        loadKeys(FerriteToolWindowState.effectiveScanPattern(pattern))
+    }
+
+    private fun loadKeys(pattern: String) {
+        val keys = connectionManager.scanKeys(pattern, MAX_KEYS)
         val model = DefaultListModel<KeyItem>()
         keys.forEach { key ->
             val type = connectionManager.getKeyType(key)
@@ -167,20 +173,22 @@ class FerriteToolWindow(private val project: Project) {
     private fun updateConnectionsList() {
         val model = DefaultListModel<ConnectionItem>()
         connectionManager.getConnections().forEach { conn ->
-            model.addElement(ConnectionItem(
-                conn.name,
-                conn.host,
-                conn.port,
-                connectionManager.isConnected() && connectionManager.getCurrentConnectionName() == conn.name
-            ))
+            model.addElement(
+                ConnectionItem(
+                    conn.name,
+                    conn.host,
+                    conn.port,
+                    connectionManager.isConnected() && connectionManager.getCurrentConnectionName() == conn.name
+                )
+            )
         }
         connectionsList.model = model
     }
 
     private fun updatePoolStatus() {
-        val status = if (connectionManager.isConnected()) "Pool: active (1 conn)" else "Pool: idle"
-        poolStatusLabel.text = status
+        poolStatusLabel.text = FerriteToolWindowState.poolStatusText(connectionManager.isConnected())
     }
+
     fun getContent(): JComponent = panel
 
     data class ConnectionItem(
@@ -194,6 +202,10 @@ class FerriteToolWindow(private val project: Project) {
         val key: String,
         val type: String
     )
+
+    private companion object {
+        private const val MAX_KEYS = 1000
+    }
 
     class ConnectionCellRenderer : DefaultListCellRenderer() {
         override fun getListCellRendererComponent(

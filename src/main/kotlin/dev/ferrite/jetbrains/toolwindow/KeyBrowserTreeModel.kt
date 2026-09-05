@@ -14,6 +14,7 @@ class KeyBrowserTreeModel : DefaultTreeModel(DefaultMutableTreeNode("Keys")) {
 
     companion object {
         const val DEFAULT_DELIMITER = ":"
+
         /** Reduced from 200 to 100 to lower memory pressure during initial tree population. */
         const val LAZY_LOAD_BATCH_SIZE = 100
         const val PLACEHOLDER_TEXT = "Loading..."

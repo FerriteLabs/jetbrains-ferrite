@@ -25,10 +25,6 @@ class FerriteSettingsConfigurable : Configurable {
 
     override fun getDisplayName(): String = "Ferrite"
 
-    private companion object {
-        private const val GRID_INSET = 5
-    }
-
     override fun createComponent(): JComponent {
         val p = JPanel(GridBagLayout())
         val gbc = GridBagConstraints().apply {
@@ -37,37 +33,57 @@ class FerriteSettingsConfigurable : Configurable {
             anchor = GridBagConstraints.WEST
         }
 
-        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0.0
+        gbc.gridx = 0
+        gbc.gridy = 0
+        gbc.weightx = 0.0
         p.add(JBLabel("Default host:"), gbc)
-        gbc.gridx = 1; gbc.weightx = 1.0
+        gbc.gridx = 1
+        gbc.weightx = 1.0
         p.add(hostField, gbc)
 
-        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0.0
+        gbc.gridx = 0
+        gbc.gridy = 1
+        gbc.weightx = 0.0
         p.add(JBLabel("Default port:"), gbc)
-        gbc.gridx = 1; gbc.weightx = 1.0
+        gbc.gridx = 1
+        gbc.weightx = 1.0
         p.add(portSpinner, gbc)
 
-        gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0.0
+        gbc.gridx = 0
+        gbc.gridy = 2
+        gbc.weightx = 0.0
         p.add(JBLabel("Output format:"), gbc)
-        gbc.gridx = 1; gbc.weightx = 1.0
+        gbc.gridx = 1
+        gbc.weightx = 1.0
         p.add(outputFormatCombo, gbc)
 
-        gbc.gridx = 0; gbc.gridy = 3; gbc.weightx = 0.0
+        gbc.gridx = 0
+        gbc.gridy = 3
+        gbc.weightx = 0.0
         p.add(JBLabel("Max keys to display:"), gbc)
-        gbc.gridx = 1; gbc.weightx = 1.0
+        gbc.gridx = 1
+        gbc.weightx = 1.0
         p.add(maxKeysSpinner, gbc)
 
-        gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2
+        gbc.gridx = 0
+        gbc.gridy = 4
+        gbc.gridwidth = 2
         p.add(autoConnectCheckbox, gbc)
 
         gbc.gridwidth = 1
-        gbc.gridx = 0; gbc.gridy = 5; gbc.weightx = 0.0
+        gbc.gridx = 0
+        gbc.gridy = 5
+        gbc.weightx = 0.0
         p.add(JBLabel("Connection timeout (ms):"), gbc)
-        gbc.gridx = 1; gbc.weightx = 1.0
+        gbc.gridx = 1
+        gbc.weightx = 1.0
         p.add(timeoutSpinner, gbc)
 
         // Filler
-        gbc.gridx = 0; gbc.gridy = 6; gbc.weighty = 1.0; gbc.gridwidth = 2
+        gbc.gridx = 0
+        gbc.gridy = 6
+        gbc.weighty = 1.0
+        gbc.gridwidth = 2
         p.add(JPanel(), gbc)
 
         panel = p
@@ -107,12 +123,5 @@ class FerriteSettingsConfigurable : Configurable {
 
     override fun disposeUIResources() {
         panel = null
-    }
-
-    private fun addLabeledRow(panel: JPanel, gbc: GridBagConstraints, row: Int, label: String, component: JComponent) {
-        gbc.gridx = 0; gbc.gridy = row; gbc.weightx = 0.0; gbc.gridwidth = 1
-        panel.add(JBLabel(label), gbc)
-        gbc.gridx = 1; gbc.weightx = 1.0
-        panel.add(component, gbc)
     }
 }

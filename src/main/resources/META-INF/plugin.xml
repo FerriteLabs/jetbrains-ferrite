@@ -1,11 +1,11 @@
 <idea-plugin>
     <id>dev.ferrite.jetbrains</id>
     <name>Ferrite</name>
-    <vendor email="support@ferrite.dev" url="https://ferrite.dev">Ferrite</vendor>
+    <vendor url="https://github.com/ferritelabs/ferrite">FerriteLabs</vendor>
 
     <description><![CDATA[
     <h1>Ferrite for JetBrains IDEs</h1>
-    <p>Official JetBrains IDE plugin for <a href="https://ferrite.dev">Ferrite</a> -
+    <p>Official JetBrains IDE plugin for <a href="https://github.com/ferritelabs/ferrite">Ferrite</a> -
     a high-performance, tiered-storage key-value store.</p>
 
     <h2>Features</h2>

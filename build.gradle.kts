@@ -1,12 +1,12 @@
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.0.21"
-    id("org.jetbrains.intellij.platform") version "2.3.0"
+    id("org.jetbrains.intellij.platform") version "2.18.1"
     id("io.gitlab.arturbosch.detekt") version "1.23.7"
 }
 
 group = "dev.ferrite"
-version = "1.3.0"
+version = "1.4.0"
 
 repositories {
     mavenCentral()
@@ -23,7 +23,6 @@ dependencies {
     intellijPlatform {
         intellijIdeaCommunity("2024.3.1")
         bundledPlugin("com.intellij.java")
-        instrumentationTools()
     }
 }
 
@@ -32,22 +31,39 @@ detekt {
     buildUponDefaultConfig = true
 }
 
+intellijPlatform {
+    pluginVerification {
+        ides {
+            create(
+                org.jetbrains.intellij.platform.gradle.IntelliJPlatformType.IntellijIdeaCommunity,
+                "2024.3.1",
+            )
+            create(
+                org.jetbrains.intellij.platform.gradle.IntelliJPlatformType.IntellijIdea,
+                "2025.3",
+            )
+        }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+    }
+}
+
 tasks {
     withType<JavaCompile> {
         sourceCompatibility = "21"
         targetCompatibility = "21"
     }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "21"
-    }
-
     patchPluginXml {
         sinceBuild.set("243")
-        untilBuild.set("251.*")
+        untilBuild.set("253.*")
 
         pluginDescription.set("""
             <h1>Ferrite for JetBrains IDEs</h1>
-            <p>Official JetBrains IDE plugin for <a href="https://ferrite.dev">Ferrite</a> -
+            <p>Official JetBrains IDE plugin for <a href="https://github.com/ferritelabs/ferrite">Ferrite</a> -
             a high-performance, tiered-storage key-value store.</p>
 
             <h2>Features</h2>
@@ -60,6 +76,13 @@ tasks {
         """.trimIndent())
 
         changeNotes.set("""
+            <h2>1.4.0</h2>
+            <ul>
+                <li>Isolate command parsing, dispatch, lexer scanning, and tool-window decisions</li>
+                <li>Align VECTOR.DEL language metadata with the Ferrite command contract</li>
+                <li>Restore deterministic tests, Detekt, build, and plugin verification gates</li>
+                <li>Use reachable GitHub project links until the hosted documentation endpoint is verified</li>
+            </ul>
             <h2>1.1.0</h2>
             <ul>
                 <li>Fix FerriteSettings syntax error</li>
@@ -87,4 +110,3 @@ tasks {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
-
